@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color: #121212;
+    background-color: #FAF9F5;
+  }
+
+  body {
+    background-color: #FAF9F5;
+    color: #121212;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Editorial typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+  }
+}
+
+/* Minimalist scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF9F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #D8D5CC;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5E7765;
+}
+
+/* Hairline utility */
+.border-hairline {
+  border-color: #E7E5DD;
+}
+
+.divide-hairline > * + * {
+  border-color: #E7E5DD;
+}
+
+/* Selection */
+::selection {
+  background-color: #E2ECE6;
+  color: #121212;
+}
+
+/* Floating animation utilities for TAL-style scattered squircles */
+@keyframes float-gentle-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--tw-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(calc(var(--tw-rotate, 0deg) + 1.5deg));
+  }
+}
+
+@keyframes float-gentle-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--tw-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-14px) rotate(calc(var(--tw-rotate, 0deg) - 1.5deg));
+  }
+}
+
+@keyframes float-gentle-3 {
+  0%, 100% {
+    transform: translateY(0px) rotate(var(--tw-rotate, 0deg));
+  }
+  50% {
+    transform: translateY(-8px) rotate(calc(var(--tw-rotate, 0deg) + 2deg));
+  }
+}
+
+.animate-float-1 {
+  animation: float-gentle-1 6s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-gentle-2 7.5s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-gentle-3 8.5s ease-in-out infinite;
+}
+
+/* Chrome / Glass reflection effect for badge */
+.badge-chrome {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,240,235,0.7) 100%);
+  backdrop-filter: blur(8px);
+}
+
+/* Hide scrollbar utility for mobile horizontal tab rows */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile Safe Area and Viewport Utilities */
+.pb-safe {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+}
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top, 1rem));
+}
+
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
