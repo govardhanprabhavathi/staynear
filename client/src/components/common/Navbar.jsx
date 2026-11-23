@@ -58,10 +58,10 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 py-3.5 sm:py-5 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-40 py-4 sm:py-5 transition-all duration-300">
       {/* Sticky Smooth Gradient Blur Fade (No box edges, melts seamlessly into page) */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 sm:h-32 select-none -z-10"
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 sm:h-32 select-none -z-10"
         style={{
           background: 'linear-gradient(to bottom, rgba(251, 251, 250, 0.96) 0%, rgba(251, 251, 250, 0.75) 50%, rgba(251, 251, 250, 0) 100%)',
           backdropFilter: 'blur(16px)',
@@ -71,13 +71,13 @@ const Navbar = () => {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
         <div className="flex items-center justify-between">
           {/* TAL-style Squircle Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-black text-white flex flex-col items-center justify-center font-heading font-black tracking-tighter shadow-sm leading-none transition-transform group-hover:scale-95">
-              <span className="text-[12px] sm:text-[13px] tracking-tight">stay</span>
-              <span className="text-[8px] sm:text-[9px] font-mono tracking-widest text-[#DCEBE3] uppercase">NEAR</span>
+            <div className="w-10 h-10 rounded-2xl bg-black text-white flex flex-col items-center justify-center font-heading font-black tracking-tighter shadow-sm leading-none transition-transform group-hover:scale-95">
+              <span className="text-[13px] tracking-tight">stay</span>
+              <span className="text-[9px] font-mono tracking-widest text-[#DCEBE3] uppercase">NEAR</span>
             </div>
           </Link>
 
@@ -89,6 +89,7 @@ const Navbar = () => {
             >
               Explore PGs
             </Link>
+
             <Link
               to="/about"
               className="text-xs font-semibold text-neutral-600 hover:text-black transition-colors"
@@ -264,21 +265,11 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Quick Action Buttons & Menu Button */}
-          <div className="flex items-center gap-1.5 md:hidden">
-            {isAuthenticated && isStudent && (
-              <Link
-                to="/student/dashboard?tab=saved"
-                className="p-2 text-neutral-700 hover:text-black flex items-center gap-1 text-xs font-mono"
-                title="Saved PGs"
-              >
-                <Heart className="w-4 h-4 text-softRed fill-softRed" />
-                <span className="font-semibold text-[11px]">{favouriteIds.size}</span>
-              </Link>
-            )}
+          {/* Mobile Menu Button */}
+          <div className="flex items-center gap-2 md:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-nearBlack hover:text-mutedSage focus:outline-none"
+              className="p-2 text-nearBlack hover:text-mutedSage"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -294,42 +285,32 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/98 backdrop-blur-xl border-b border-black/[0.08] px-6 py-6 space-y-4 shadow-floating"
+            className="md:hidden bg-white border-b border-black/[0.08] px-6 py-6 space-y-4 shadow-floating"
           >
             <nav className="flex flex-col space-y-3 font-semibold text-sm text-neutral-700">
-              <Link to="/explore" className="py-1 hover:text-black flex items-center justify-between">
-                <span>Explore PGs</span>
-                <span className="text-[10px] font-mono uppercase text-mutedSage bg-lightSage/50 px-2 py-0.5 rounded-full">All Stays</span>
+              <Link to="/explore" className="py-1 hover:text-black">
+                Explore PGs
               </Link>
-              <Link to="/list-property" className="py-1 text-mutedSage flex items-center justify-between">
-                <span>For PG Owners</span>
-                <span className="text-[10px] font-mono uppercase text-neutral-400">Zero Brokerage</span>
+              <Link to="/list-property" className="py-1 text-mutedSage">
+                For PG Owners
               </Link>
               <Link to="/about" className="py-1 hover:text-black">
                 About & Safety
-              </Link>
-              <Link to="/contact" className="py-1 hover:text-black">
-                Support & Contact
               </Link>
             </nav>
 
             <div className="pt-4 border-t border-black/[0.06] flex flex-col gap-2.5">
               {isAuthenticated ? (
                 <>
-                  <div className="flex items-center justify-between py-1 text-xs text-neutral-500 font-mono">
-                    <span>Signed in as <strong className="text-black">{user?.name?.split(' ')[0]}</strong></span>
-                    <span className="uppercase text-[10px] bg-neutral-100 px-2 py-0.5 rounded text-neutral-600 font-bold">{user?.role}</span>
-                  </div>
                   <Link
                     to={getDashboardLink()}
-                    className="w-full py-3 rounded-full bg-black text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all"
+                    className="w-full py-2.5 rounded-full bg-black text-white text-xs font-semibold text-center"
                   >
-                    <span>Go to Dashboard</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    Go to Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="w-full py-2.5 rounded-full border border-softRed/30 text-softRed text-xs font-semibold hover:bg-softRed/5 transition-colors"
+                    className="w-full py-2.5 rounded-full border border-softRed/30 text-softRed text-xs font-semibold"
                   >
                     Sign Out
                   </button>
@@ -338,14 +319,14 @@ const Navbar = () => {
                 <>
                   <Link
                     to="/login"
-                    className="w-full py-3 rounded-full bg-black text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-all"
+                    className="w-full py-2.5 rounded-full bg-black text-white text-xs font-semibold text-center flex items-center justify-center gap-1.5"
                   >
                     <span>Login</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                   <Link
                     to="/register"
-                    className="w-full py-2.5 rounded-full border border-black/[0.1] text-nearBlack text-xs font-semibold text-center hover:bg-neutral-50 transition-colors"
+                    className="w-full py-2.5 rounded-full border border-black/[0.1] text-nearBlack text-xs font-semibold text-center"
                   >
                     Sign up
                   </Link>

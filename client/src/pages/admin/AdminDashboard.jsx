@@ -193,32 +193,32 @@ const AdminDashboard = () => {
         </div>
 
         {/* Dashboard Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
-          {/* Navigation Sidebar / Mobile Scrollable Tab Bar */}
-          <aside className="md:col-span-4 lg:col-span-3 bg-pureWhite p-2 sm:p-4 rounded-2xl border border-warmSand shadow-subtle flex md:flex-col overflow-x-auto no-scrollbar gap-1.5 md:space-y-1">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          {/* Navigation Sidebar */}
+          <aside className="md:col-span-4 lg:col-span-3 bg-pureWhite p-4 rounded-2xl border border-warmSand shadow-subtle space-y-1">
             <button
               onClick={() => setTab('overview')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'overview'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <Compass className="w-4 h-4 shrink-0" />
-              <span>Metrics</span>
+              <Compass className="w-4 h-4" />
+              <span>Platform Metrics</span>
             </button>
 
             <button
               onClick={() => setTab('owners')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'owners'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <ShieldCheck className="w-4 h-4 shrink-0" />
-                <span>Owners</span>
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="w-4 h-4" />
+                <span>Owner Approvals</span>
               </div>
               {pendingOwners.length > 0 && (
                 <span className="text-xs px-2 py-0.5 rounded-full bg-mutedGold text-nearBlack font-bold">
@@ -229,15 +229,15 @@ const AdminDashboard = () => {
 
             <button
               onClick={() => setTab('properties')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'properties'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Building2 className="w-4 h-4 shrink-0" />
-                <span>Properties</span>
+              <div className="flex items-center gap-3">
+                <Building2 className="w-4 h-4" />
+                <span>Property Moderation</span>
               </div>
               {pendingProperties.length > 0 && (
                 <span className="text-xs px-2 py-0.5 rounded-full bg-mutedGold text-nearBlack font-bold">
@@ -248,15 +248,15 @@ const AdminDashboard = () => {
 
             <button
               onClick={() => setTab('users')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'users'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Users className="w-4 h-4 shrink-0" />
-                <span>Users</span>
+              <div className="flex items-center gap-3">
+                <Users className="w-4 h-4" />
+                <span>User Management</span>
               </div>
               <span className="text-xs px-2 py-0.5 rounded-full bg-warmSand text-nearBlack">
                 {allUsers.length}
@@ -265,15 +265,15 @@ const AdminDashboard = () => {
 
             <button
               onClick={() => setTab('reports')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'reports'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Flag className="w-4 h-4 shrink-0" />
-                <span>Reports</span>
+              <div className="flex items-center gap-3">
+                <Flag className="w-4 h-4" />
+                <span>Reported Listings</span>
               </div>
               {reports.filter((r) => r.status === 'pending').length > 0 && (
                 <span className="text-xs px-2 py-0.5 rounded-full bg-softRed text-pureWhite font-bold">

@@ -152,32 +152,32 @@ const StudentDashboard = () => {
           </p>
         </div>
 
-        {/* Dashboard Layout: Left Nav Sidebar / Mobile Scrollable Bar, Right Tab Content */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
+        {/* Dashboard Layout: Left Nav Sidebar, Right Tab Content */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           {/* Navigation Sidebar */}
-          <aside className="md:col-span-4 lg:col-span-3 bg-pureWhite p-2 sm:p-4 rounded-2xl border border-warmSand shadow-subtle flex md:flex-col overflow-x-auto no-scrollbar gap-1.5 md:space-y-1">
+          <aside className="md:col-span-4 lg:col-span-3 bg-pureWhite p-4 rounded-2xl border border-warmSand shadow-subtle space-y-1">
             <button
               onClick={() => setTab('overview')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'overview'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <Compass className="w-4 h-4 shrink-0" />
+              <Compass className="w-4 h-4" />
               <span>Overview</span>
             </button>
 
             <button
               onClick={() => setTab('saved')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'saved'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Heart className="w-4 h-4 shrink-0" />
+              <div className="flex items-center gap-3">
+                <Heart className="w-4 h-4" />
                 <span>Saved PGs</span>
               </div>
               <span
@@ -193,14 +193,14 @@ const StudentDashboard = () => {
 
             <button
               onClick={() => setTab('interests')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'interests'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <MessageSquare className="w-4 h-4 shrink-0" />
+              <div className="flex items-center gap-3">
+                <MessageSquare className="w-4 h-4" />
                 <span>My Interests</span>
               </div>
               <span
@@ -216,15 +216,15 @@ const StudentDashboard = () => {
 
             <button
               onClick={() => setTab('visits')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'visits'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Calendar className="w-4 h-4 shrink-0" />
-                <span>Visits</span>
+              <div className="flex items-center gap-3">
+                <Calendar className="w-4 h-4" />
+                <span>Visit Appointments</span>
               </div>
               <span
                 className={`text-xs px-2 py-0.5 rounded-full ${
@@ -239,17 +239,17 @@ const StudentDashboard = () => {
 
             <button
               onClick={() => setTab('profile')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'profile'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <User className="w-4 h-4 shrink-0" />
-              <span>Profile</span>
+              <User className="w-4 h-4" />
+              <span>Profile & Housing Prefs</span>
             </button>
 
-            <div className="hidden md:block pt-3 border-t border-warmSand/70">
+            <div className="pt-3 border-t border-warmSand/70">
               <button
                 onClick={() => {
                   logout();

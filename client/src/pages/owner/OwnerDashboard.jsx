@@ -358,31 +358,31 @@ const OwnerDashboard = () => {
         </div>
 
         {/* Dashboard Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
-          {/* Left Navigation Sidebar / Mobile Scrollable Bar */}
-          <aside className="md:col-span-4 lg:col-span-3 bg-pureWhite p-2 sm:p-4 rounded-2xl border border-warmSand shadow-subtle flex md:flex-col overflow-x-auto no-scrollbar gap-1.5 md:space-y-1">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          {/* Left Navigation Sidebar */}
+          <aside className="md:col-span-4 lg:col-span-3 bg-pureWhite p-4 rounded-2xl border border-warmSand shadow-subtle space-y-1">
             <button
               onClick={() => setTab('overview')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'overview'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <Compass className="w-4 h-4 shrink-0" />
+              <Compass className="w-4 h-4" />
               <span>Overview</span>
             </button>
 
             <button
               onClick={() => setTab('properties')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'properties'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Building2 className="w-4 h-4 shrink-0" />
+              <div className="flex items-center gap-3">
+                <Building2 className="w-4 h-4" />
                 <span>My Properties</span>
               </div>
               <span
@@ -402,28 +402,28 @@ const OwnerDashboard = () => {
                   setStep(1);
                   setTab('add');
                 }}
-                className={`shrink-0 whitespace-nowrap md:w-full flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                   currentTab === 'add'
-                    ? 'bg-nearBlack text-pureWhite shadow-sm'
+                    ? 'bg-nearBlack text-pureWhite'
                     : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
                 }`}
               >
-                <Plus className="w-4 h-4 shrink-0" />
-                <span>Add Property</span>
+                <Plus className="w-4 h-4" />
+                <span>Add Property (Wizard)</span>
               </button>
             )}
 
             <button
               onClick={() => setTab('enquiries')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'enquiries'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <MessageSquare className="w-4 h-4 shrink-0" />
-                <span>Enquiries</span>
+              <div className="flex items-center gap-3">
+                <MessageSquare className="w-4 h-4" />
+                <span>Student Enquiries</span>
               </div>
               <span
                 className={`text-xs px-2 py-0.5 rounded-full ${
@@ -438,15 +438,15 @@ const OwnerDashboard = () => {
 
             <button
               onClick={() => setTab('visits')}
-              className={`shrink-0 whitespace-nowrap md:w-full flex items-center justify-between gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
+              className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-left ${
                 currentTab === 'visits'
-                  ? 'bg-nearBlack text-pureWhite shadow-sm'
+                  ? 'bg-nearBlack text-pureWhite'
                   : 'text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack'
               }`}
             >
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <Calendar className="w-4 h-4 shrink-0" />
-                <span>Visits</span>
+              <div className="flex items-center gap-3">
+                <Calendar className="w-4 h-4" />
+                <span>Visit Requests</span>
               </div>
               <span
                 className={`text-xs px-2 py-0.5 rounded-full ${
@@ -461,13 +461,13 @@ const OwnerDashboard = () => {
 
             <button
               onClick={() => navigate('/owner/apply')}
-              className="shrink-0 whitespace-nowrap md:w-full flex items-center gap-2.5 sm:gap-3 px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-semibold text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack transition-all text-left"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold text-neutral-600 hover:bg-warmOffWhite hover:text-nearBlack transition-all text-left"
             >
-              <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span>Documents</span>
+              <ShieldCheck className="w-4 h-4" />
+              <span>Verification Documents</span>
             </button>
 
-            <div className="hidden md:block pt-3 border-t border-warmSand/70">
+            <div className="pt-3 border-t border-warmSand/70">
               <button
                 onClick={() => {
                   logout();
@@ -764,14 +764,14 @@ const OwnerDashboard = () => {
 
             {/* TAB 3: ADD PROPERTY MULTI-STEP WIZARD */}
             {currentTab === 'add' && (
-              <div className="bg-pureWhite p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-warmSand shadow-subtle space-y-6 sm:space-y-8">
+              <div className="bg-pureWhite p-8 rounded-3xl border border-warmSand shadow-subtle space-y-8">
                 {/* Wizard Stepper */}
                 <div className="border-b border-warmSand pb-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-4">
+                  <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-bold uppercase tracking-wider text-mutedSage">
                       Listing Creation Wizard • Step {step} of 6
                     </span>
-                    <span className="text-xs text-neutral-500 font-medium">
+                    <span className="text-xs text-neutral-500">
                       {step === 1 && 'Basic Information'}
                       {step === 2 && 'Location & Campus Proximity'}
                       {step === 3 && 'Pricing & Deposit'}

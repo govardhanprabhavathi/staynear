@@ -1,27 +1,20 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 
 const Footer = () => {
-  const location = useLocation();
-
-  // HomePage already contains the minimal TAL-style footer
-  if (location.pathname === '/') {
-    return null;
-  }
-
   return (
-    <footer className="bg-[#FAF9F5] border-t border-hairline text-textSecondary pt-16 sm:pt-20 pb-12 sm:pb-14 text-xs font-light">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 sm:gap-10 pb-12 sm:pb-16 border-b border-hairline">
+    <footer className="bg-[#FAF9F5] border-t border-hairline text-textSecondary pt-20 pb-14 text-xs font-light">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 pb-16 border-b border-hairline">
           {/* Brand Column */}
-          <div className="col-span-2 space-y-3 sm:space-y-4">
+          <div className="md:col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <span className="font-heading font-extrabold text-xl tracking-tighter text-nearBlack">
                 Stay<span className="font-serif italic font-normal text-mutedSage">Near</span>
               </span>
             </Link>
-            <p className="text-textSecondary max-w-sm leading-relaxed text-xs">
+            <p className="text-textSecondary max-w-sm leading-relaxed">
               Curated, verified student and professional accommodations surrounding Christ University and Bengaluru's central tech corridors.
             </p>
             <div className="pt-1 font-mono text-[10px] uppercase tracking-wider text-mutedSage">

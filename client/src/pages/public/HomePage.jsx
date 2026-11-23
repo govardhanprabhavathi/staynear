@@ -234,12 +234,12 @@ const HomePage = () => {
                 right: card.right,
                 transform: `rotate(${card.rotate}deg)`,
               }}
-              className={`absolute w-10 h-10 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl xs:rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-elevated border border-black/[0.06] p-0.5 xs:p-1 ${card.anim} ${idx > 5 ? 'hidden sm:block' : ''}`}
+              className={`absolute w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-elevated border border-black/[0.06] p-1 ${card.anim}`}
             >
               <img
                 src={card.img}
                 alt="Student & space preview"
-                className="w-full h-full object-cover rounded-lg xs:rounded-xl sm:rounded-2xl"
+                className="w-full h-full object-cover rounded-xl sm:rounded-2xl"
               />
             </motion.div>
           ))}
@@ -255,7 +255,7 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-black text-4xl xs:text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[0.98]"
+            className="font-heading font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[0.98]"
           >
             India’s fastest <br />
             student stay network
@@ -266,7 +266,7 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-sm xs:text-base sm:text-lg text-neutral-600 font-medium max-w-xl mx-auto px-2"
+            className="text-base sm:text-lg text-neutral-600 font-medium max-w-xl mx-auto"
           >
             <span className="font-extrabold text-black">30k+</span> students and scholars meet verified PG owners every month.
           </motion.p>
@@ -276,13 +276,13 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-4 flex flex-wrap items-center justify-center gap-6 sm:gap-14 text-center px-2"
+            className="pt-4 flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-center"
           >
             <div>
-              <div className="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
+              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
                 2.5k+
               </div>
-              <div className="text-[11px] sm:text-xs text-neutral-500 font-medium mt-0.5">
+              <div className="text-xs text-neutral-500 font-medium mt-0.5">
                 verified student beds
               </div>
             </div>
@@ -290,10 +290,10 @@ const HomePage = () => {
             <div className="hidden sm:block w-px h-10 bg-black/[0.08]" />
 
             <div>
-              <div className="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
+              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
                 100%
               </div>
-              <div className="text-[11px] sm:text-xs text-neutral-500 font-medium mt-0.5">
+              <div className="text-xs text-neutral-500 font-medium mt-0.5">
                 direct owner connection
               </div>
             </div>
@@ -301,12 +301,12 @@ const HomePage = () => {
             <div className="hidden sm:block w-px h-10 bg-black/[0.08]" />
 
             <div>
-              <div className="font-heading font-black text-2xl xs:text-3xl sm:text-4xl text-black tracking-tight flex items-center justify-center gap-1.5">
-                <span className="text-neutral-400 font-serif text-xl sm:text-2xl font-light">‹</span>
+              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight flex items-center justify-center gap-1.5">
+                <span className="text-neutral-400 font-serif text-2xl font-light">‹</span>
                 <span className="tabular-nums">4.8</span>
-                <span className="text-neutral-400 font-serif text-xl sm:text-2xl font-light">›</span>
+                <span className="text-neutral-400 font-serif text-2xl font-light">›</span>
               </div>
-              <div className="text-[11px] sm:text-xs text-neutral-500 font-medium mt-0.5">
+              <div className="text-xs text-neutral-500 font-medium mt-0.5">
                 student satisfaction rating
               </div>
             </div>
@@ -364,7 +364,7 @@ const HomePage = () => {
               <div
                 key={idx}
                 onClick={() => navigate(`/explore?search=${encodeURIComponent(pg.name)}`)}
-                className={`p-3.5 sm:p-5 flex flex-col items-center justify-center text-center hover:bg-neutral-50/80 transition-all group cursor-pointer active:scale-95 border-black/[0.06] ${
+                className={`p-5 flex flex-col items-center justify-center text-center hover:bg-neutral-50/80 transition-all group cursor-pointer active:scale-95 border-black/[0.06] ${
                   !isLastInBaseRow ? 'border-r sm:border-r-0 ' : ''
                 }${
                   !isLastInSmRow ? 'sm:border-r lg:border-r-0 ' : ''
@@ -379,10 +379,10 @@ const HomePage = () => {
                 }`}
                 title={`Explore ${pg.name}`}
               >
-                <span className="font-heading font-bold text-[11px] xs:text-xs sm:text-[13px] text-black group-hover:text-mutedSage transition-colors tracking-tight line-clamp-1">
+                <span className="font-heading font-bold text-xs sm:text-[13px] text-black group-hover:text-mutedSage transition-colors tracking-tight line-clamp-1">
                   {pg.name}
                 </span>
-                <span className="text-[9px] xs:text-[10px] font-mono text-neutral-400 mt-0.5 line-clamp-1">
+                <span className="text-[10px] font-mono text-neutral-400 mt-1">
                   {pg.subtitle}
                 </span>
               </div>
@@ -409,7 +409,7 @@ const HomePage = () => {
         </motion.div>
 
         {/* The Card Container */}
-        <div className="bg-white rounded-2xl sm:rounded-[32px] border border-black/[0.08] shadow-floating p-5 sm:p-8 space-y-6">
+        <div className="bg-white rounded-[32px] border border-black/[0.08] shadow-floating p-6 sm:p-8 space-y-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeProperty._id || activePropIndex}
@@ -420,7 +420,7 @@ const HomePage = () => {
               className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start"
             >
               {/* Left: Aspect Ratio Photo with Live Green Dot Pill */}
-              <div className="md:col-span-5 relative aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-100 shadow-inner">
+              <div className="md:col-span-5 relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-100 shadow-inner">
                 <img
                   src={activeProperty.coverImage || activeProperty.images?.[0]}
                   alt={activeProperty.title}
@@ -509,25 +509,25 @@ const HomePage = () => {
           </AnimatePresence>
 
           {/* Card Bottom Bar (Matching Image 3) */}
-          <div className="pt-4 border-t border-black/[0.06] flex flex-col xs:flex-row items-stretch xs:items-center justify-between gap-3">
+          <div className="pt-4 border-t border-black/[0.06] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center font-heading font-black text-xs shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center font-heading font-black text-xs">
                 SN
               </div>
-              <span className="text-xs font-bold text-black">StayNear Verified</span>
+              <span className="text-xs font-bold text-black hidden sm:inline-block">StayNear Verified</span>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-3">
               <button
                 onClick={handleNextStay}
-                className="flex-1 xs:flex-initial px-4 sm:px-5 py-2.5 rounded-full border border-black/[0.12] text-xs font-bold text-neutral-700 hover:border-black hover:text-black transition-all active:scale-95 text-center min-h-[42px]"
+                className="px-5 py-2.5 rounded-full border border-black/[0.12] text-xs font-bold text-neutral-700 hover:border-black hover:text-black transition-all active:scale-95"
               >
                 ✕ Next Stay
               </button>
 
               <button
                 onClick={() => navigate(`/property/${activeProperty._id || ''}`)}
-                className="flex-1 xs:flex-initial px-5 sm:px-6 py-2.5 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm hover:bg-neutral-800 transition-all active:scale-95 text-center min-h-[42px]"
+                className="px-6 py-2.5 rounded-full bg-black text-white text-xs font-bold flex items-center gap-1.5 shadow-sm hover:bg-neutral-800 transition-all active:scale-95"
               >
                 <Calendar className="w-3.5 h-3.5" />
                 <span>Schedule Visit</span>
@@ -558,7 +558,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl sm:rounded-3xl border border-black/[0.08] shadow-sm p-5 sm:p-8 flex flex-col justify-between space-y-6 group"
+            className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-8 flex flex-col justify-between space-y-6 group"
           >
             <div>
               <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
@@ -570,15 +570,15 @@ const HomePage = () => {
             </div>
 
             {/* Stacked Fan Preview Cards with Hover Interactive Spread */}
-            <div className="relative h-48 sm:h-56 flex items-center justify-center scale-90 sm:scale-100">
-              <div className="w-32 sm:w-36 h-44 sm:h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform -rotate-12 translate-x-[-25px] sm:translate-x-[-30px] group-hover:-rotate-16 group-hover:translate-x-[-42px] transition-transform duration-500">
+            <div className="relative h-56 flex items-center justify-center">
+              <div className="w-36 h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform -rotate-12 translate-x-[-30px] group-hover:-rotate-16 group-hover:translate-x-[-42px] transition-transform duration-500">
                 <img
                   src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=400&q=80"
                   alt="Student room"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="w-32 sm:w-36 h-44 sm:h-48 rounded-2xl overflow-hidden shadow-2xl border border-black/[0.08] transform rotate-2 z-10 group-hover:scale-105 transition-transform duration-500 relative">
+              <div className="w-36 h-48 rounded-2xl overflow-hidden shadow-2xl border border-black/[0.08] transform rotate-2 z-10 group-hover:scale-105 transition-transform duration-500 relative">
                 <img
                   src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=80"
                   alt="Student studying"
@@ -590,7 +590,7 @@ const HomePage = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-32 sm:w-36 h-44 sm:h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform rotate-12 translate-x-[25px] sm:translate-x-[30px] group-hover:rotate-16 group-hover:translate-x-[42px] transition-transform duration-500">
+              <div className="w-36 h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform rotate-12 translate-x-[30px] group-hover:rotate-16 group-hover:translate-x-[42px] transition-transform duration-500">
                 <img
                   src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80"
                   alt="Co-living lounge"
@@ -606,7 +606,7 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white rounded-2xl sm:rounded-3xl border border-black/[0.08] shadow-sm p-5 sm:p-8 flex flex-col justify-between space-y-6"
+            className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-8 flex flex-col justify-between space-y-6"
           >
             <div>
               <h3 className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
@@ -667,7 +667,7 @@ const HomePage = () => {
       </section>
 
       {/* 5. MINIMAL TAL PHONE / QUICK BOOK BANNER (MATCHING IMAGE 5) */}
-      <section className="py-20 sm:py-24 px-4 text-center max-w-4xl mx-auto space-y-6">
+      <section className="py-24 px-4 text-center max-w-4xl mx-auto space-y-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -675,15 +675,15 @@ const HomePage = () => {
           transition={{ duration: 0.6 }}
           className="space-y-3"
         >
-          <h2 className="font-heading font-black text-[23px] xs:text-3xl sm:text-5xl md:text-6xl text-black tracking-tight whitespace-nowrap">
+          <h2 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-black tracking-tight whitespace-nowrap">
             Find your room in 10 mins
           </h2>
 
           <div className="space-y-1">
-            <p className="text-[13px] xs:text-base sm:text-lg font-semibold text-neutral-800 whitespace-nowrap">
+            <p className="text-base sm:text-lg font-semibold text-neutral-800 whitespace-nowrap">
               Let’s start by finding your preferred campus
             </p>
-            <p className="text-[11px] xs:text-xs sm:text-sm text-neutral-500 font-light">
+            <p className="text-xs sm:text-sm text-neutral-500 font-light whitespace-nowrap">
               Enter your mobile number to receive curated PG availability
             </p>
           </div>
@@ -698,17 +698,17 @@ const HomePage = () => {
           onSubmit={handleQuickSubmit}
           className="pt-3 max-w-md mx-auto space-y-4"
         >
-          <div className="relative flex items-center px-4 py-3 sm:py-3.5 rounded-full border border-black/20 bg-white shadow-sm focus-within:border-black transition-colors">
+          <div className="relative flex items-center px-4 py-3.5 rounded-full border border-black/20 bg-white shadow-sm focus-within:border-black transition-colors">
             {/* Interactive Country Code Dropdown Trigger */}
             <div className="relative" ref={countryDropdownRef}>
               <button
                 type="button"
                 onClick={() => setCountryDropdownOpen(!countryDropdownOpen)}
-                className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-neutral-800 pr-2.5 sm:pr-3 border-r border-black/15 shrink-0 whitespace-nowrap select-none hover:text-black transition-colors focus:outline-none"
+                className="flex items-center gap-1.5 text-sm font-semibold text-neutral-800 pr-3 border-r border-black/15 shrink-0 whitespace-nowrap select-none hover:text-black transition-colors focus:outline-none"
                 aria-label="Select country code"
                 aria-expanded={countryDropdownOpen}
               >
-                <span className="text-sm sm:text-base leading-none">{selectedCountry.flag}</span>
+                <span className="text-base leading-none">{selectedCountry.flag}</span>
                 <span>{selectedCountry.code}</span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 text-neutral-500 shrink-0 transition-transform duration-200 ${
@@ -725,7 +725,7 @@ const HomePage = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.97 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute left-0 top-full mt-2 w-64 max-w-[calc(100vw-3rem)] max-h-60 overflow-y-auto rounded-2xl bg-white border border-black/10 shadow-floating py-2 z-50 text-left"
+                    className="absolute left-0 top-full mt-2 w-64 max-h-60 overflow-y-auto rounded-2xl bg-white border border-black/10 shadow-floating py-2 z-50 text-left"
                   >
                     <div className="px-3.5 py-1 text-[10px] font-mono uppercase tracking-wider text-neutral-400 font-semibold border-b border-black/[0.06] mb-1">
                       Select Country Code
@@ -766,23 +766,23 @@ const HomePage = () => {
               placeholder="98765 43210"
               value={quickPhone}
               onChange={(e) => setQuickPhone(e.target.value)}
-              className="w-full pl-2.5 sm:pl-3 text-sm sm:text-base font-semibold text-black placeholder:text-neutral-400 bg-transparent focus:outline-none tracking-wide"
+              className="w-full pl-3 text-sm sm:text-base font-semibold text-black placeholder:text-neutral-400 bg-transparent focus:outline-none tracking-wide"
             />
           </div>
 
-          <p className="text-[11px] sm:text-xs text-neutral-400">
+          <p className="text-[11px] sm:text-xs text-neutral-400 whitespace-nowrap">
             We’ll text you instant verified links and campus map
           </p>
 
           <button
             type="submit"
-            className="w-full py-3.5 rounded-full bg-black text-white font-heading font-bold text-sm tracking-tight flex items-center justify-center gap-1.5 shadow-floating hover:bg-neutral-800 transition-all active:scale-95 whitespace-nowrap min-h-[44px]"
+            className="w-full py-3.5 rounded-full bg-black text-white font-heading font-bold text-sm tracking-tight flex items-center justify-center gap-1.5 shadow-floating hover:bg-neutral-800 transition-all active:scale-95 whitespace-nowrap"
           >
             <span>Continue</span>
             <ArrowRight className="w-4 h-4" />
           </button>
 
-          <p className="text-[10px] sm:text-[11px] text-neutral-400 pt-1 leading-snug max-w-sm mx-auto">
+          <p className="text-[10px] sm:text-[11px] text-neutral-400 pt-1 whitespace-nowrap">
             By requesting a code, you agree to StayNear's Terms of Service and Privacy Policy.
           </p>
         </motion.form>

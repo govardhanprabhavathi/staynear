@@ -131,16 +131,16 @@ const ExplorePage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#FAF9F5] text-nearBlack pt-28 sm:pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+    <div className="min-h-screen bg-[#FAF9F5] text-nearBlack pt-32 pb-24">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Page Header */}
-        <div className="mb-8 sm:mb-10 pb-6 sm:pb-8 border-b border-hairline">
+        <div className="mb-10 pb-8 border-b border-hairline">
           <span className="font-mono text-[10px] uppercase tracking-widest text-mutedSage">
             [ DIRECTORY ]
           </span>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-1.5">
             <div>
-              <h1 className="font-heading font-extrabold text-2xl sm:text-4xl text-nearBlack tracking-tight">
+              <h1 className="font-heading font-extrabold text-3xl sm:text-4xl text-nearBlack tracking-tight">
                 Accommodations
               </h1>
               <p className="text-xs text-textMuted font-mono mt-1">
@@ -433,160 +433,35 @@ const ExplorePage = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ duration: 0.25 }}
-              className="relative w-full max-w-xs bg-pureWhite h-full shadow-floating overflow-y-auto p-6 space-y-6 flex flex-col justify-between"
+              className="relative w-full max-w-xs bg-pureWhite h-full shadow-floating overflow-y-auto p-6 space-y-6"
             >
-              <div className="space-y-6">
-                <div className="flex items-center justify-between pb-4 border-b border-hairline">
-                  <span className="font-heading font-bold text-base text-nearBlack">
-                    Filter Stays
-                  </span>
-                  <button
-                    onClick={() => setMobileFilterOpen(false)}
-                    className="p-1 text-textMuted hover:text-nearBlack"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Living Style */}
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                    Living Style
-                  </label>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    {CATEGORIES.map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => setCategory(cat)}
-                        className={`text-center text-xs py-2 px-2.5 rounded-lg font-medium transition-colors ${
-                          category === cat
-                            ? 'bg-nearBlack text-pureWhite'
-                            : 'bg-surfaceMuted/40 text-textSecondary border border-hairline'
-                        }`}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Locality */}
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                    Locality
-                  </label>
-                  <select
-                    value={locality}
-                    onChange={(e) => setLocality(e.target.value)}
-                    className="w-full text-xs p-2.5 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
-                  >
-                    {LOCALITIES.map((loc) => (
-                      <option key={loc} value={loc}>
-                        {loc}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Monthly Rent */}
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                    Monthly Rent (₹)
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="number"
-                      placeholder="Min"
-                      value={minRent}
-                      onChange={(e) => setMinRent(e.target.value)}
-                      className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Max"
-                      value={maxRent}
-                      onChange={(e) => setMaxRent(e.target.value)}
-                      className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                {/* Room Sharing */}
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                    Room Sharing
-                  </label>
-                  <div className="grid grid-cols-3 gap-1.5">
-                    {SHARING_OPTIONS.map((share) => (
-                      <button
-                        key={share}
-                        onClick={() => setSharing(share)}
-                        className={`text-[11px] py-1.5 px-2 rounded font-medium text-center border transition-all ${
-                          sharing === share
-                            ? 'bg-nearBlack text-pureWhite border-nearBlack'
-                            : 'bg-surfaceMuted/40 text-textSecondary border-hairline hover:border-nearBlack'
-                        }`}
-                      >
-                        {share}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Meals */}
-                <div className="pt-2 border-t border-hairline">
-                  <label className="flex items-center justify-between cursor-pointer">
-                    <span className="text-xs font-medium text-nearBlack">
-                      Meals Included
-                    </span>
-                    <input
-                      type="checkbox"
-                      checked={foodOnly}
-                      onChange={(e) => setFoodOnly(e.target.checked)}
-                      className="w-4 h-4 rounded text-mutedSage focus:ring-0 accent-mutedSage cursor-pointer"
-                    />
-                  </label>
-                </div>
-
-                {/* Amenities */}
-                <div className="pt-2 border-t border-hairline">
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                    Amenities
-                  </label>
-                  <div className="space-y-2 max-h-40 overflow-y-auto pr-1">
-                    {AMENITY_OPTIONS.map((amenity) => (
-                      <label
-                        key={amenity}
-                        className="flex items-center gap-2 text-xs text-textSecondary hover:text-nearBlack cursor-pointer"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={selectedAmenities.includes(amenity)}
-                          onChange={() => handleToggleAmenity(amenity)}
-                          className="w-3.5 h-3.5 rounded text-mutedSage focus:ring-0 accent-mutedSage"
-                        />
-                        <span>{amenity}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
+              <div className="flex items-center justify-between pb-4 border-b border-hairline">
+                <span className="font-heading font-bold text-base text-nearBlack">
+                  Filters
+                </span>
+                <button
+                  onClick={() => setMobileFilterOpen(false)}
+                  className="p-1 text-textMuted hover:text-nearBlack"
+                >
+                  <X className="w-5 h-5" />
+                </button>
               </div>
 
               {/* Apply & Close */}
-              <div className="pt-4 border-t border-hairline flex gap-3">
+              <div className="pt-4 flex gap-3">
                 <Button
                   variant="secondary"
-                  className="w-1/2 justify-center"
+                  className="w-1/2"
                   onClick={handleClearAll}
                 >
                   Reset
                 </Button>
                 <Button
                   variant="primary"
-                  className="w-1/2 justify-center"
+                  className="w-1/2"
                   onClick={() => setMobileFilterOpen(false)}
                 >
-                  Show Results
+                  Apply
                 </Button>
               </div>
             </motion.div>
