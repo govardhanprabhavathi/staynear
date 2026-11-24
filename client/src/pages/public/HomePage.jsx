@@ -21,18 +21,21 @@ import {
 import { propertyService } from '../../services/propertyService';
 import { SAMPLE_PROPERTIES } from '../../data/sampleProperties';
 
-// 12 Floating portraits & room photos for TAL-style scattered hero
+// 10 Floating portraits & room photos symmetrically balanced on left and right flanks
 const SCATTERED_CARDS = [
+  // Left flank
   { img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80', rotate: -12, top: '9%', left: '4%', anim: 'animate-float-1', yRange: [-20, 40] },
-  { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80', rotate: 14, top: '5%', left: '26%', anim: 'animate-float-2', yRange: [-35, 60] },
-  { img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=300&q=80', rotate: -8, top: '7%', right: '28%', anim: 'animate-float-3', yRange: [-25, 45] },
-  { img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80', rotate: 16, top: '10%', right: '5%', anim: 'animate-float-1', yRange: [-40, 70] },
-  { img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80', rotate: -15, top: '38%', left: '2%', anim: 'animate-float-3', yRange: [-15, 30] },
-  { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', rotate: 10, top: '42%', right: '3%', anim: 'animate-float-2', yRange: [-30, 50] },
+  { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80', rotate: 10, top: '6%', left: '22%', anim: 'animate-float-2', yRange: [-35, 60] },
+  { img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80', rotate: -15, top: '40%', left: '2%', anim: 'animate-float-3', yRange: [-15, 30] },
   { img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=300&q=80', rotate: 8, bottom: '14%', left: '5%', anim: 'animate-float-1', yRange: [0, 80] },
-  { img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=300&q=80', rotate: -10, bottom: '16%', right: '6%', anim: 'animate-float-2', yRange: [0, 90] },
-  { img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=300&q=80', rotate: 6, bottom: '6%', left: '24%', anim: 'animate-float-3', yRange: [10, 60] },
-  { img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80', rotate: -14, bottom: '7%', right: '22%', anim: 'animate-float-1', yRange: [15, 75] },
+  { img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=300&q=80', rotate: 6, bottom: '6%', left: '22%', anim: 'animate-float-3', yRange: [10, 60] },
+
+  // Right flank (exact symmetric mirror)
+  { img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80', rotate: 12, top: '9%', right: '4%', anim: 'animate-float-1', yRange: [-40, 70] },
+  { img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=300&q=80', rotate: -10, top: '6%', right: '22%', anim: 'animate-float-3', yRange: [-25, 45] },
+  { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', rotate: 10, top: '40%', right: '2%', anim: 'animate-float-2', yRange: [-30, 50] },
+  { img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=300&q=80', rotate: -8, bottom: '14%', right: '5%', anim: 'animate-float-2', yRange: [0, 90] },
+  { img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80', rotate: -6, bottom: '6%', right: '22%', anim: 'animate-float-1', yRange: [15, 75] },
 ];
 
 const FEATURED_CAMPUS_PGS = [
@@ -173,17 +176,17 @@ const HomePage = () => {
           ))}
         </div>
 
-        {/* Central Content */}
+        {/* Central Content (Perfect Central Alignment & Symmetry) */}
         <motion.div
           style={{ opacity: heroOpacity, y: heroTranslateY }}
-          className="relative z-10 max-w-4xl mx-auto space-y-7"
+          className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-8"
         >
           {/* Main Huge Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[0.98]"
+            className="w-full text-center font-heading font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[1.0] mx-auto"
           >
             Find your stay <br />
             near campus
@@ -194,56 +197,63 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg text-neutral-600 font-medium max-w-xl mx-auto"
+            className="w-full text-center text-base sm:text-lg text-neutral-600 font-medium max-w-xl mx-auto leading-relaxed"
           >
             A simple, direct way for students to discover verified rooms around Christ University. Zero brokers, zero middleman fees.
           </motion.p>
 
-          {/* Value Props Bar with Hairline Dividers (Honest, direct student guarantees) */}
+          {/* Value Props Bar: Mathematically Perfect 3-Column Grid (Zero Brokerage is Exactly Centered) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-4 flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-center"
+            className="pt-2 w-full max-w-3xl mx-auto relative"
           >
-            <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
-                Direct Owners
+            <div className="grid grid-cols-1 sm:grid-cols-3 items-center text-center relative">
+              {/* Pillar 1: Direct Owners */}
+              <div className="flex flex-col items-center justify-center text-center px-4 py-2 sm:py-0">
+                <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight whitespace-nowrap">
+                  Direct Owners
+                </div>
+                <div className="text-xs text-neutral-500 font-medium mt-1 whitespace-nowrap">
+                  talk directly to landlords
+                </div>
               </div>
-              <div className="text-xs text-neutral-500 font-medium mt-0.5">
-                talk directly to landlords
-              </div>
-            </div>
 
-            <div className="hidden sm:block w-px h-10 bg-black/[0.08]" />
+              {/* Precise Hairline Divider 1 */}
+              <div className="hidden sm:block absolute left-1/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-10 bg-black/[0.08]" />
 
-            <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
-                Zero Brokerage
+              {/* Pillar 2: Zero Brokerage (EXACT 50% MATHEMATICAL MIDPOINT) */}
+              <div className="flex flex-col items-center justify-center text-center px-4 py-2 sm:py-0">
+                <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight whitespace-nowrap">
+                  Zero Brokerage
+                </div>
+                <div className="text-xs text-neutral-500 font-medium mt-1 whitespace-nowrap">
+                  never pay agent commissions
+                </div>
               </div>
-              <div className="text-xs text-neutral-500 font-medium mt-0.5">
-                never pay agent commissions
-              </div>
-            </div>
 
-            <div className="hidden sm:block w-px h-10 bg-black/[0.08]" />
+              {/* Precise Hairline Divider 2 */}
+              <div className="hidden sm:block absolute left-2/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-10 bg-black/[0.08]" />
 
-            <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
-                Inspect In Person
-              </div>
-              <div className="text-xs text-neutral-500 font-medium mt-0.5">
-                visit rooms before deciding
+              {/* Pillar 3: Inspect In Person */}
+              <div className="flex flex-col items-center justify-center text-center px-4 py-2 sm:py-0">
+                <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight whitespace-nowrap">
+                  Inspect In Person
+                </div>
+                <div className="text-xs text-neutral-500 font-medium mt-1 whitespace-nowrap">
+                  visit rooms before deciding
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* TAL Pill Button with Micro-Arrow (Matching Image 1) */}
+          {/* TAL Pill Button with Micro-Arrow (Centered on Same Axis) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-4"
+            className="pt-2 flex justify-center w-full"
           >
             <button
               onClick={() => navigate('/explore')}
