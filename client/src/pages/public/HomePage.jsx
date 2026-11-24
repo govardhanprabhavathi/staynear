@@ -19,6 +19,7 @@ import {
   Check,
 } from 'lucide-react';
 import { propertyService } from '../../services/propertyService';
+import { SAMPLE_PROPERTIES } from '../../data/sampleProperties';
 
 // 12 Floating portraits & room photos for TAL-style scattered hero
 const SCATTERED_CARDS = [
@@ -49,80 +50,7 @@ const FEATURED_CAMPUS_PGS = [
   { name: 'Green View Executive', subtitle: 'Dairy Circle · 520m' },
 ];
 
-const DEMO_PROPERTIES = [
-  {
-    _id: 'demo-trends',
-    title: 'Trends Living Spaces',
-    location: { locality: 'SG Palya', landmark: '200m from Christ University Gate 1' },
-    monthlyRent: 14500,
-    sharingType: 'Double',
-    accommodationType: 'Boys PG',
-    coverImage: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=800&q=80',
-    amenities: ['High-Speed WiFi', 'Power Backup', 'Daily Housekeeping', 'Attached Bathroom'],
-    quote: 'Ergonomic study desks, quiet study hours, and freshly prepared North & South Indian meals.',
-    walkTime: '3 min walk to Gate 1',
-  },
-  {
-    _id: 'demo-pezzles',
-    title: 'Pezzles Living Stays',
-    location: { locality: 'Tavarekere', landmark: '380m to Christ Main Campus' },
-    monthlyRent: 17500,
-    sharingType: 'Single & Double',
-    accommodationType: 'Co-living',
-    coverImage: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80',
-    amenities: ['Gigabit Fiber', 'Air Conditioning', 'Gym & Terrace Lounge', 'Keyless Entry'],
-    quote: 'Designer minimalist suites with private balconies, quiet acoustic insulation and lounge.',
-    walkTime: '5 min walk',
-  },
-  {
-    _id: 'demo-singapore',
-    title: 'Singapore PG',
-    location: { locality: 'SG Palya', landmark: 'Opposite Christ University Main Gate' },
-    monthlyRent: 12500,
-    sharingType: 'Double & Triple',
-    accommodationType: 'Boys PG',
-    coverImage: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80',
-    amenities: ['Biometric Entry', 'CCTV Security', 'Nutritious Meals', 'Study Library'],
-    quote: 'Multi-tier biometric security, wholesome hygienic dining, and bright shared study spaces.',
-    walkTime: '2 min walk to Gate',
-  },
-  {
-    _id: 'demo-shivam',
-    title: 'Shivam Living Spaces',
-    location: { locality: 'SG Palya 2nd Cross', landmark: '280m to Christ Campus' },
-    monthlyRent: 15000,
-    sharingType: 'Double',
-    accommodationType: 'Boys PG',
-    coverImage: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=800&q=80',
-    amenities: ['High-Speed WiFi', 'Power Backup', 'Attached Bathroom', 'Housekeeping'],
-    quote: 'Spacious airy rooms, dedicated study desks, and round-the-clock water and power.',
-    walkTime: '4 min walk',
-  },
-  {
-    _id: 'demo-livoza',
-    title: 'Livoza Stays',
-    location: { locality: 'Koramangala 1st Block', landmark: 'Near Christ Campus Link' },
-    monthlyRent: 19000,
-    sharingType: 'Single',
-    accommodationType: 'Co-living',
-    coverImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-    amenities: ['Air Conditioning', 'Attached Balcony', 'High-Speed Fiber', 'Daily Housekeeping'],
-    quote: 'Curated premium community with luxury fittings and quiet reading lounge.',
-    walkTime: '7 min commute',
-  },
-  {
-    _id: 'demo-bellave',
-    title: 'Bellave Boys and Girls PG',
-    location: { locality: 'SG Palya 1st Cross', landmark: '220m to Christ Gate 1' },
-    monthlyRent: 13500,
-    sharingType: 'Double',
-    accommodationType: 'Boys PG',
-    coverImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
-    amenities: ['Homely South & North Meals', 'Biometric Security', 'WiFi', 'Power Backup'],
-    quote: 'Homely atmosphere, verified safety staff, and 2-minute walk to classes.',
-    walkTime: '3 min walk',
-  },
-];
+const DEMO_PROPERTIES = SAMPLE_PROPERTIES;
 
 const COUNTRY_CODES = [
   { code: '+91', country: 'India', flag: '🇮🇳' },
@@ -250,15 +178,15 @@ const HomePage = () => {
           style={{ opacity: heroOpacity, y: heroTranslateY }}
           className="relative z-10 max-w-4xl mx-auto space-y-7"
         >
-          {/* Main Huge Headline (Exact TAL typography weight & tight tracking) */}
+          {/* Main Huge Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[0.98]"
           >
-            India’s fastest <br />
-            student stay network
+            Find your stay <br />
+            near campus
           </motion.h1>
 
           {/* Minimalist Subtitle */}
@@ -268,10 +196,10 @@ const HomePage = () => {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="text-base sm:text-lg text-neutral-600 font-medium max-w-xl mx-auto"
           >
-            <span className="font-extrabold text-black">30k+</span> students and scholars meet verified PG owners every month.
+            A simple, direct way for students to discover verified rooms around Christ University. Zero brokers, zero middleman fees.
           </motion.p>
 
-          {/* Stats Bar with Hairline Dividers & Laurel Rating (Matching Image 1) */}
+          {/* Value Props Bar with Hairline Dividers (Honest, direct student guarantees) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -279,35 +207,33 @@ const HomePage = () => {
             className="pt-4 flex flex-wrap items-center justify-center gap-8 sm:gap-14 text-center"
           >
             <div>
-              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
-                2.5k+
+              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+                Direct Owners
               </div>
               <div className="text-xs text-neutral-500 font-medium mt-0.5">
-                verified student beds
+                talk directly to landlords
               </div>
             </div>
 
             <div className="hidden sm:block w-px h-10 bg-black/[0.08]" />
 
             <div>
-              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
-                100%
+              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+                Zero Brokerage
               </div>
               <div className="text-xs text-neutral-500 font-medium mt-0.5">
-                direct owner connection
+                never pay agent commissions
               </div>
             </div>
 
             <div className="hidden sm:block w-px h-10 bg-black/[0.08]" />
 
             <div>
-              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight flex items-center justify-center gap-1.5">
-                <span className="text-neutral-400 font-serif text-2xl font-light">‹</span>
-                <span className="tabular-nums">4.8</span>
-                <span className="text-neutral-400 font-serif text-2xl font-light">›</span>
+              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+                Inspect In Person
               </div>
               <div className="text-xs text-neutral-500 font-medium mt-0.5">
-                student satisfaction rating
+                visit rooms before deciding
               </div>
             </div>
           </motion.div>
@@ -537,22 +463,28 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* 4. MAJOR UPDATE CARDS (MATCHING IMAGE 4) */}
+      {/* 4. HOW STAYNEAR HELPS (HONEST & HELPFUL VALUE PROPOSITION) */}
       <section className="py-16 px-6 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="mb-6"
+          className="mb-8 text-center sm:text-left"
         >
-          <h2 className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
-            Major update
+          <span className="text-[11px] font-mono uppercase tracking-widest text-mutedSage font-bold">
+            BUILT FOR STUDENTS
+          </span>
+          <h2 className="font-heading font-black text-2xl sm:text-4xl text-black tracking-tight mt-1">
+            A simpler way to find your room
           </h2>
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1 max-w-xl">
+            We started StayNear to help Christ University students find dependable accommodation within walking distance, directly from verified landlords.
+          </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Left Card: 20k+ candidates have given Tal Interview -> 20k+ students verified */}
+          {/* Left Card: Walking distance stays */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -561,11 +493,11 @@ const HomePage = () => {
             className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-8 flex flex-col justify-between space-y-6 group"
           >
             <div>
-              <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
-                20k+
+              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+                Walking distance to campus
               </div>
-              <p className="text-sm font-semibold text-neutral-700 mt-1">
-                students have verified their stays on StayNear
+              <p className="text-sm font-medium text-neutral-600 mt-1">
+                Curated rooms across SG Palya, Tavarekere, and Koramangala. 200m to 600m from Gate 1 and Gate 2.
               </p>
             </div>
 
@@ -600,7 +532,7 @@ const HomePage = () => {
             </div>
           </motion.div>
 
-          {/* Right Card: Students can now inspect stays in 10 mins */}
+          {/* Right Card: Direct contact with landlords */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -610,56 +542,49 @@ const HomePage = () => {
           >
             <div>
               <h3 className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
-                Students can now inspect stays in 10 mins
+                Direct contact with property owners
               </h3>
+              <p className="text-sm font-medium text-neutral-600 mt-1">
+                No middleman brokers taking commissions or pushing unauthorized properties.
+              </p>
             </div>
 
-            {/* Nested Card with Avatars & Bold Stats (Matching Image 4) */}
-            <div className="bg-[#FAF9F6] rounded-2xl border border-black/[0.06] p-6 text-center space-y-4">
-              <div className="flex items-center justify-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-neutral-200 flex items-center justify-center">
-                  <Zap className="w-4 h-4 text-black fill-black" />
+            {/* Nested Card with Honest Value Points */}
+            <div className="bg-[#FAF9F6] rounded-2xl border border-black/[0.06] p-6 text-left space-y-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-[#E2ECE6] flex items-center justify-center text-mutedSage shrink-0">
+                  <ShieldCheck className="w-4 h-4" />
                 </div>
-                <span className="font-heading font-bold text-sm text-black">
-                  Shortlist ready in 10 mins
+                <div>
+                  <div className="font-heading font-bold text-sm text-black">
+                    Transparent Student Stays
+                  </div>
+                  <div className="text-[11px] text-neutral-500 font-mono">
+                    What you see is what you pay
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2 pt-1 text-xs text-neutral-700">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-mutedSage shrink-0" />
+                  <span>Verified photos of rooms and facilities</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-mutedSage shrink-0" />
+                  <span>Direct phone contact to arrange visits</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-mutedSage shrink-0" />
+                  <span>Inspect the room in person before paying any token</span>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-black/[0.06] flex items-center justify-between">
+                <span className="text-xs font-semibold text-neutral-600">Zero commission fee</span>
+                <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-mutedSage bg-[#E2ECE6] px-2.5 py-1 rounded-full">
+                  100% Free for Students
                 </span>
-              </div>
-
-              {/* Overlapping Avatar Circle */}
-              <div className="flex items-center justify-center -space-x-3">
-                <img
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80"
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80"
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=100&q=80"
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                />
-                <img
-                  src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&q=80"
-                  alt="Avatar"
-                  className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                />
-                <div className="w-10 h-10 rounded-full bg-neutral-200 border-2 border-white flex items-center justify-center text-xs font-bold text-black font-mono">
-                  +26
-                </div>
-              </div>
-
-              {/* Bold Heavy Counter (Matching Image 4) */}
-              <div>
-                <div className="font-heading font-black text-3xl sm:text-4xl text-black tracking-tight tabular-nums">
-                  3,49,156
-                </div>
-                <div className="text-[11px] font-mono text-neutral-400 uppercase mt-0.5 font-semibold">
-                  Accommodations scanned
-                </div>
               </div>
             </div>
           </motion.div>
@@ -676,15 +601,15 @@ const HomePage = () => {
           className="space-y-3"
         >
           <h2 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-black tracking-tight whitespace-nowrap">
-            Find your room in 10 mins
+            Find your stay near campus
           </h2>
 
           <div className="space-y-1">
             <p className="text-base sm:text-lg font-semibold text-neutral-800 whitespace-nowrap">
-              Let’s start by finding your preferred campus
+              Discover verified student rooms around Christ University
             </p>
             <p className="text-xs sm:text-sm text-neutral-500 font-light whitespace-nowrap">
-              Enter your mobile number to receive curated PG availability
+              Enter your mobile number to receive curated room options directly
             </p>
           </div>
         </motion.div>

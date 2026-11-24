@@ -9,6 +9,7 @@ import {
   Building,
 } from 'lucide-react';
 import { propertyService } from '../../services/propertyService';
+import { SAMPLE_PROPERTIES } from '../../data/sampleProperties';
 import PropertyCard from '../../components/property/PropertyCard';
 import Button from '../../components/common/Button';
 
@@ -89,7 +90,9 @@ const ExplorePage = () => {
           setTotalCount(data.total);
         }
       } catch (err) {
-        console.error('Failed to fetch properties:', err);
+        console.error('Failed to fetch properties, falling back to sample stays:', err);
+        setProperties(SAMPLE_PROPERTIES);
+        setTotalCount(SAMPLE_PROPERTIES.length);
       } finally {
         setLoading(false);
       }

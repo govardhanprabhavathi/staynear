@@ -115,7 +115,7 @@ const ListPropertyPage = () => {
                 Verified Owner Badge
               </h3>
               <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Gain immense trust from students and parents. Verified listings receive 3.5x more visit requests.
+                Gain immense trust from students and parents by showcasing a verified owner identity.
               </p>
             </div>
 

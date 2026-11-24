@@ -21,6 +21,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import { propertyService } from '../../services/propertyService';
+import { SAMPLE_PROPERTIES } from '../../data/sampleProperties';
 import { studentService } from '../../services/studentService';
 import { useAuth } from '../../context/AuthContext';
 import { useFavourites } from '../../context/FavouritesContext';
@@ -70,11 +71,13 @@ const PropertyDetailPage = () => {
         setProperty(prop);
         setActiveImageIndex(0);
 
-        // Fetch similar listings
         const similar = await propertyService.getSimilar(id);
         setSimilarProperties(similar);
       } catch (err) {
-        showToast('Could not load property details.', 'error');
+        console.warn('Property detail network fetch failed, using sample fallback:', err);
+        const fallback = SAMPLE_PROPERTIES.find((p) => p._id === id) || SAMPLE_PROPERTIES[0];
+        setProperty(fallback);
+        setSimilarProperties(SAMPLE_PROPERTIES.filter((p) => p._id !== fallback._id).slice(0, 3));
       } finally {
         setLoading(false);
       }
