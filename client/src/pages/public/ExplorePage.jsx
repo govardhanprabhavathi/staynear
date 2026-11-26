@@ -6,11 +6,7 @@ import {
   SlidersHorizontal,
   X,
   RotateCcw,
-  Megaphone,
-  ChevronLeft,
-  ChevronRight,
-  Pause,
-  Play,
+  TrendingUp,
   ArrowRight,
 } from 'lucide-react';
 import { propertyService } from '../../services/propertyService';
@@ -62,10 +58,9 @@ const ExplorePage = () => {
   // Drawer state for mobile
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  // Results & Sponsored State
+  // Results & Trending (Promoted) State
   const [properties, setProperties] = useState([]);
   const [sponsoredProperties, setSponsoredProperties] = useState([]);
-  const [sponsoredIndex, setSponsoredIndex] = useState(0);
   const [isRollPaused, setIsRollPaused] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -103,7 +98,6 @@ const ExplorePage = () => {
           setTotalCount(data.total);
         }
         setSponsoredProperties(sponsored);
-        setSponsoredIndex(0);
       } catch (err) {
         console.error('Failed to fetch properties, falling back to sample stays:', err);
         setProperties(SAMPLE_PROPERTIES);
@@ -117,26 +111,15 @@ const ExplorePage = () => {
     fetchListings();
   }, [search, locality, category, minRent, maxRent, sharing, foodOnly, selectedAmenities, sort]);
 
-  // Auto-roll sponsored PGs smoothly so promoted listings cycle into the first slot
-  useEffect(() => {
-    if (isRollPaused || sponsoredProperties.length <= 1) return;
-    const interval = setInterval(() => {
-      setSponsoredIndex((prev) => (prev + 1) % sponsoredProperties.length);
-    }, 4500);
-    return () => clearInterval(interval);
-  }, [isRollPaused, sponsoredProperties.length]);
-
-  const visibleSponsored =
-    sponsoredProperties.length <= 3
-      ? sponsoredProperties
-      : Array.from({ length: 3 }, (_, offset) =>
-          sponsoredProperties[(sponsoredIndex + offset) % sponsoredProperties.length]
-        );
-
   const promoteTarget =
     isAuthenticated && user?.role === 'owner'
       ? '/owner/dashboard?tab=properties'
       : '/list-property';
+
+  const carouselItems =
+    sponsoredProperties.length > 1
+      ? [...sponsoredProperties, ...sponsoredProperties]
+      : sponsoredProperties;
 
   const handleToggleAmenity = (amenity) => {
     if (selectedAmenities.includes(amenity)) {
@@ -170,17 +153,144 @@ const ExplorePage = () => {
     activeFilters.push({ label: a, clear: () => handleToggleAmenity(a) });
   });
 
+  const renderFilterFields = () => (
+    <>
+      {/* Category */}
+      <div>
+        <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
+          Living Style
+        </label>
+        <div className="flex flex-col gap-1">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setCategory(cat)}
+              className={`text-left text-xs px-3 py-1.5 rounded-lg font-medium transition-colors ${
+                category === cat
+                  ? 'bg-nearBlack text-pureWhite'
+                  : 'text-textSecondary hover:bg-surfaceMuted'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Locality */}
+      <div>
+        <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
+          Locality
+        </label>
+        <select
+          value={locality}
+          onChange={(e) => setLocality(e.target.value)}
+          className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
+        >
+          {LOCALITIES.map((loc) => (
+            <option key={loc} value={loc}>
+              {loc}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Monthly Rent Range */}
+      <div>
+        <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
+          Monthly Rent (₹)
+        </label>
+        <div className="grid grid-cols-2 gap-2">
+          <input
+            type="number"
+            placeholder="Min"
+            value={minRent}
+            onChange={(e) => setMinRent(e.target.value)}
+            className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
+          />
+          <input
+            type="number"
+            placeholder="Max"
+            value={maxRent}
+            onChange={(e) => setMaxRent(e.target.value)}
+            className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
+          />
+        </div>
+      </div>
+
+      {/* Room Sharing */}
+      <div>
+        <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
+          Room Sharing
+        </label>
+        <div className="grid grid-cols-2 gap-1.5">
+          {SHARING_OPTIONS.map((share) => (
+            <button
+              key={share}
+              onClick={() => setSharing(share)}
+              className={`text-[11px] py-1.5 px-2 rounded font-medium text-center border transition-all ${
+                sharing === share
+                  ? 'bg-nearBlack text-pureWhite border-nearBlack'
+                  : 'bg-surfaceMuted/40 text-textSecondary border-hairline hover:border-nearBlack'
+              }`}
+            >
+              {share}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Food Included */}
+      <div className="pt-2 border-t border-hairline">
+        <label className="flex items-center justify-between cursor-pointer">
+          <span className="text-xs font-medium text-nearBlack">
+            Meals Included
+          </span>
+          <input
+            type="checkbox"
+            checked={foodOnly}
+            onChange={(e) => setFoodOnly(e.target.checked)}
+            className="w-3.5 h-3.5 rounded text-mutedSage focus:ring-0 accent-mutedSage cursor-pointer"
+          />
+        </label>
+      </div>
+
+      {/* Amenities */}
+      <div className="pt-2 border-t border-hairline">
+        <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
+          Amenities
+        </label>
+        <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
+          {AMENITY_OPTIONS.map((amenity) => (
+            <label
+              key={amenity}
+              className="flex items-center gap-2 text-xs text-textSecondary hover:text-nearBlack cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                checked={selectedAmenities.includes(amenity)}
+                onChange={() => handleToggleAmenity(amenity)}
+                className="w-3.5 h-3.5 rounded text-mutedSage focus:ring-0 accent-mutedSage"
+              />
+              <span>{amenity}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+
   return (
-    <div className="min-h-screen bg-[#FAF9F5] text-nearBlack pt-32 pb-24">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+    <div className="min-h-screen bg-[#FAF9F5] text-nearBlack pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
         {/* Page Header */}
-        <div className="mb-10 pb-8 border-b border-hairline">
+        <div className="mb-6 sm:mb-10 pb-6 sm:pb-8 border-b border-hairline">
           <span className="font-mono text-[10px] uppercase tracking-widest text-mutedSage">
             [ DIRECTORY ]
           </span>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mt-1.5">
             <div>
-              <h1 className="font-heading font-extrabold text-3xl sm:text-4xl text-nearBlack tracking-tight">
+              <h1 className="font-heading font-extrabold text-2xl sm:text-4xl text-nearBlack tracking-tight">
                 Accommodations
               </h1>
               <p className="text-xs text-textMuted font-mono mt-1">
@@ -188,21 +298,23 @@ const ExplorePage = () => {
               </p>
             </div>
 
-            {/* Mobile Filter Button */}
-            <div className="flex items-center gap-3 md:hidden">
+            {/* Mobile Filter & Sort Controls */}
+            <div className="flex flex-wrap items-center gap-2.5 md:hidden w-full">
               <Button
                 variant="secondary"
                 size="sm"
                 icon={SlidersHorizontal}
                 onClick={() => setMobileFilterOpen(true)}
+                className="shrink-0"
               >
-                Filters ({activeFilters.length})
+                Filters {activeFilters.length > 0 ? `(${activeFilters.length})` : ''}
               </Button>
 
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="text-xs py-2 px-3 rounded-full bg-pureWhite border border-hairline text-nearBlack"
+                aria-label="Sort accommodations"
+                className="flex-1 min-w-[140px] text-xs py-2 px-3 rounded-full bg-pureWhite border border-hairline text-nearBlack focus:outline-none"
               >
                 <option value="newest">Recently Added</option>
                 <option value="rent_asc">Rent: Low to High</option>
@@ -214,7 +326,7 @@ const ExplorePage = () => {
         </div>
 
         {/* Search Bar Strip */}
-        <div className="bg-pureWhite p-3 rounded-xl border border-hairline mb-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-pureWhite p-3 rounded-xl border border-hairline mb-6 sm:mb-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           <div className="relative w-full sm:max-w-md">
             <Search className="w-3.5 h-3.5 text-textMuted absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
@@ -279,122 +391,56 @@ const ExplorePage = () => {
           </div>
         )}
 
-        {/* Dedicated Sponsored PGs Section (Rolls on top & first) */}
+        {/* Dedicated Trending PGs Carousel (Right-to-Left Continuous Roll) */}
         {sponsoredProperties.length > 0 && (
           <section
-            aria-label="Sponsored PGs"
+            aria-label="Trending PGs"
             onMouseEnter={() => setIsRollPaused(true)}
             onMouseLeave={() => setIsRollPaused(false)}
-            className="mb-10 bg-pureWhite rounded-2xl border border-[#E7C98F]/80 p-6 sm:p-7 shadow-subtle"
+            onTouchStart={() => setIsRollPaused(true)}
+            onTouchEnd={() => setIsRollPaused(false)}
+            className="mb-8 sm:mb-10 bg-pureWhite rounded-2xl border border-hairline p-4 sm:p-6 shadow-subtle overflow-hidden"
           >
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 mb-6 border-b border-hairline">
-              <div className="space-y-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-widest text-[#7A4E0B] bg-[#FBF3E4] px-2.5 py-0.5 rounded-full border border-[#E7C98F]">
-                    <Megaphone className="w-3 h-3" />
-                    <span>Sponsored PGs</span>
-                  </span>
-                  <span className="text-[11px] font-mono text-textMuted">
-                    Rolling spotlight • {sponsoredProperties.length} promoted stay{sponsoredProperties.length === 1 ? '' : 's'}
-                  </span>
-                </div>
-                <h2 className="font-heading font-bold text-xl sm:text-2xl text-nearBlack tracking-tight">
-                  Promoted Residences Around Campus
+            <div className="flex items-center justify-between gap-3 mb-4 sm:mb-5">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#7A4E0B]" />
+                <h2 className="font-heading font-bold text-lg sm:text-2xl text-nearBlack tracking-tight">
+                  Trending
                 </h2>
-                <p className="text-xs text-textSecondary">
-                  PGs featured first by owners actively welcoming new student visits.
-                </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-2.5">
-                <Link
-                  to={promoteTarget}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-nearBlack bg-surfaceMuted/70 hover:bg-nearBlack hover:text-pureWhite px-3.5 py-2 rounded-full border border-hairline transition-colors"
-                >
-                  <span>Promote your PG</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-
-                {sponsoredProperties.length > 1 && (
-                  <div className="flex items-center gap-1.5 pl-1">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setSponsoredIndex(
-                          (prev) => (prev - 1 + sponsoredProperties.length) % sponsoredProperties.length
-                        )
-                      }
-                      aria-label="Previous sponsored PG"
-                      className="w-8 h-8 rounded-full border border-hairline bg-pureWhite hover:border-nearBlack flex items-center justify-center text-nearBlack transition-colors"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsRollPaused((prev) => !prev)}
-                      aria-label={isRollPaused ? 'Resume auto-roll' : 'Pause auto-roll'}
-                      title={isRollPaused ? 'Resume auto-roll' : 'Pause auto-roll'}
-                      className="w-8 h-8 rounded-full border border-hairline bg-pureWhite hover:border-nearBlack flex items-center justify-center text-nearBlack transition-colors"
-                    >
-                      {isRollPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setSponsoredIndex((prev) => (prev + 1) % sponsoredProperties.length)
-                      }
-                      aria-label="Next sponsored PG"
-                      className="w-8 h-8 rounded-full border border-hairline bg-pureWhite hover:border-nearBlack flex items-center justify-center text-nearBlack transition-colors"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                )}
-              </div>
+              <Link
+                to={promoteTarget}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-nearBlack bg-surfaceMuted/70 hover:bg-nearBlack hover:text-pureWhite px-3 py-1.5 rounded-full border border-hairline transition-colors whitespace-nowrap shrink-0"
+              >
+                <span>Promote your PG</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
 
-            <AnimatePresence mode="popLayout">
-              <motion.div
-                key={sponsoredIndex}
-                initial={{ opacity: 0.7, x: 14 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0.7, x: -14 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-              >
-                {visibleSponsored.map((property) => (
-                  <PropertyCard key={`sponsored-${property._id}`} property={property} priority />
-                ))}
-              </motion.div>
-            </AnimatePresence>
-
-            {sponsoredProperties.length > 1 && (
-              <div className="flex items-center justify-between mt-5 pt-4 border-t border-hairline/70">
-                <div className="flex items-center gap-1.5">
-                  {sponsoredProperties.map((prop, idx) => (
-                    <button
-                      key={prop._id}
-                      type="button"
-                      onClick={() => setSponsoredIndex(idx)}
-                      aria-label={`Show ${prop.title} first`}
-                      className={`h-1.5 rounded-full transition-all ${
-                        idx === sponsoredIndex
-                          ? 'w-6 bg-nearBlack'
-                          : 'w-1.5 bg-neutral-300 hover:bg-neutral-400'
-                      }`}
-                    />
+            {sponsoredProperties.length === 1 ? (
+              <div className="max-w-sm">
+                <PropertyCard property={sponsoredProperties[0]} priority />
+              </div>
+            ) : (
+              <div className="carousel-wrapper overflow-hidden -mx-1 px-1">
+                <div className={`animate-carousel-rtl ${isRollPaused ? 'paused' : ''}`}>
+                  {carouselItems.map((property, idx) => (
+                    <div
+                      key={`trending-${property._id}-${idx}`}
+                      className="w-[76vw] max-w-[290px] sm:w-[310px] sm:max-w-none lg:w-[330px] shrink-0 mr-4 sm:mr-5"
+                    >
+                      <PropertyCard property={property} priority />
+                    </div>
                   ))}
                 </div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-textMuted">
-                  {isRollPaused ? 'Paused on hover' : 'Auto-rolling'} • {String(sponsoredIndex + 1).padStart(2, '0')} / {String(sponsoredProperties.length).padStart(2, '0')}
-                </span>
               </div>
             )}
           </section>
         )}
 
         {/* Layout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10 items-start">
           {/* Desktop Filter Sidebar */}
           <aside className="hidden md:block md:col-span-4 lg:col-span-3 bg-pureWhite p-6 rounded-xl border border-hairline space-y-6 sticky top-28">
             <div className="flex items-center justify-between pb-4 border-b border-hairline">
@@ -410,134 +456,13 @@ const ExplorePage = () => {
               </button>
             </div>
 
-            {/* Category */}
-            <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                Living Style
-              </label>
-              <div className="flex flex-col gap-1">
-                {CATEGORIES.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setCategory(cat)}
-                    className={`text-left text-xs px-3 py-1.5 rounded-lg font-medium transition-colors ${
-                      category === cat
-                        ? 'bg-nearBlack text-pureWhite'
-                        : 'text-textSecondary hover:bg-surfaceMuted'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Locality */}
-            <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                Locality
-              </label>
-              <select
-                value={locality}
-                onChange={(e) => setLocality(e.target.value)}
-                className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
-              >
-                {LOCALITIES.map((loc) => (
-                  <option key={loc} value={loc}>
-                    {loc}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Monthly Rent Range */}
-            <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                Monthly Rent (₹)
-              </label>
-              <div className="grid grid-cols-2 gap-2">
-                <input
-                  type="number"
-                  placeholder="Min"
-                  value={minRent}
-                  onChange={(e) => setMinRent(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
-                />
-                <input
-                  type="number"
-                  placeholder="Max"
-                  value={maxRent}
-                  onChange={(e) => setMaxRent(e.target.value)}
-                  className="w-full text-xs p-2 rounded-lg bg-surfaceMuted/50 border border-hairline text-nearBlack focus:outline-none"
-                />
-              </div>
-            </div>
-
-            {/* Room Sharing */}
-            <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                Room Sharing
-              </label>
-              <div className="grid grid-cols-2 gap-1.5">
-                {SHARING_OPTIONS.map((share) => (
-                  <button
-                    key={share}
-                    onClick={() => setSharing(share)}
-                    className={`text-[11px] py-1.5 px-2 rounded font-medium text-center border transition-all ${
-                      sharing === share
-                        ? 'bg-nearBlack text-pureWhite border-nearBlack'
-                        : 'bg-surfaceMuted/40 text-textSecondary border-hairline hover:border-nearBlack'
-                    }`}
-                  >
-                    {share}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Food Included */}
-            <div className="pt-2 border-t border-hairline">
-              <label className="flex items-center justify-between cursor-pointer">
-                <span className="text-xs font-medium text-nearBlack">
-                  Meals Included
-                </span>
-                <input
-                  type="checkbox"
-                  checked={foodOnly}
-                  onChange={(e) => setFoodOnly(e.target.checked)}
-                  className="w-3.5 h-3.5 rounded text-mutedSage focus:ring-0 accent-mutedSage cursor-pointer"
-                />
-              </label>
-            </div>
-
-            {/* Amenities */}
-            <div className="pt-2 border-t border-hairline">
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-textMuted mb-2">
-                Amenities
-              </label>
-              <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
-                {AMENITY_OPTIONS.map((amenity) => (
-                  <label
-                    key={amenity}
-                    className="flex items-center gap-2 text-xs text-textSecondary hover:text-nearBlack cursor-pointer"
-                  >
-                    <input
-                      type="checkbox"
-                      checked={selectedAmenities.includes(amenity)}
-                      onChange={() => handleToggleAmenity(amenity)}
-                      className="w-3.5 h-3.5 rounded text-mutedSage focus:ring-0 accent-mutedSage"
-                    />
-                    <span>{amenity}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
+            {renderFilterFields()}
           </aside>
 
           {/* Right Main Results */}
           <main className="col-span-1 md:col-span-8 lg:col-span-9">
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div
                     key={i}
@@ -550,7 +475,7 @@ const ExplorePage = () => {
                 ))}
               </div>
             ) : properties.length === 0 ? (
-              <div className="bg-pureWhite rounded-xl border border-hairline p-12 text-center max-w-md mx-auto my-8">
+              <div className="bg-pureWhite rounded-xl border border-hairline p-8 sm:p-12 text-center max-w-md mx-auto my-8">
                 <h3 className="font-heading font-bold text-lg text-nearBlack">
                   No accommodations found
                 </h3>
@@ -564,7 +489,7 @@ const ExplorePage = () => {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
                 {properties.map((property) => (
                   <PropertyCard key={property._id} property={property} />
                 ))}
@@ -595,14 +520,19 @@ const ExplorePage = () => {
                 </span>
                 <button
                   onClick={() => setMobileFilterOpen(false)}
+                  aria-label="Close filters"
                   className="p-1 text-textMuted hover:text-nearBlack"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
+              <div className="space-y-6">
+                {renderFilterFields()}
+              </div>
+
               {/* Apply & Close */}
-              <div className="pt-4 flex gap-3">
+              <div className="pt-4 border-t border-hairline flex gap-3 sticky bottom-0 bg-pureWhite pb-2">
                 <Button
                   variant="secondary"
                   className="w-1/2"

@@ -102,3 +102,34 @@
   backdrop-filter: blur(8px);
 }
 
+/* Seamless right-to-left horizontal carousel */
+@keyframes carousel-scroll-rtl {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-carousel-rtl {
+  display: flex;
+  width: max-content;
+  animation: carousel-scroll-rtl 26s linear infinite;
+  will-change: transform;
+}
+
+.carousel-wrapper:hover .animate-carousel-rtl,
+.carousel-wrapper:focus-within .animate-carousel-rtl,
+.animate-carousel-rtl.paused {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-carousel-rtl {
+    animation: none;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+

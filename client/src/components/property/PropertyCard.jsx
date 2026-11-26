@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapPin, Heart, ArrowUpRight, ShieldCheck, Megaphone } from 'lucide-react';
+import { MapPin, Heart, ArrowUpRight, ShieldCheck, TrendingUp } from 'lucide-react';
 import { CategoryBadge } from '../common/Badge';
 import { useFavourites } from '../../context/FavouritesContext';
 
@@ -41,8 +41,8 @@ const PropertyCard = ({ property, priority = false }) => {
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 items-center">
           {property.isSponsored && (
             <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#7A4E0B] bg-[#FBF3E4]/95 backdrop-blur-sm px-2 py-0.5 rounded border border-[#E7C98F]">
-              <Megaphone className="w-2.5 h-2.5" />
-              <span>Sponsored</span>
+              <TrendingUp className="w-2.5 h-2.5" />
+              <span>Trending</span>
             </span>
           )}
           <CategoryBadge category={property.accommodationType} />
