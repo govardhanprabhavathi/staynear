@@ -26,16 +26,16 @@ const SCATTERED_CARDS = [
   // Left flank
   { img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80', rotate: -12, top: '9%', left: '4%', anim: 'animate-float-1', yRange: [-20, 40] },
   { img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80', rotate: 10, top: '6%', left: '22%', anim: 'animate-float-2', yRange: [-35, 60] },
-  { img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80', rotate: -15, top: '40%', left: '2%', anim: 'animate-float-3', yRange: [-15, 30] },
-  { img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=300&q=80', rotate: 8, bottom: '14%', left: '5%', anim: 'animate-float-1', yRange: [0, 80] },
-  { img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=300&q=80', rotate: 6, bottom: '6%', left: '22%', anim: 'animate-float-3', yRange: [10, 60] },
+  { img: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80', rotate: -15, top: '40%', left: '2%', anim: 'animate-float-3', yRange: [-15, 30], hideOnMobile: true },
+  { img: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=300&q=80', rotate: 8, bottom: '12%', left: '4%', anim: 'animate-float-1', yRange: [0, 80] },
+  { img: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=300&q=80', rotate: 6, bottom: '5%', left: '24%', anim: 'animate-float-3', yRange: [10, 60] },
 
   // Right flank (exact symmetric mirror)
   { img: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=300&q=80', rotate: 12, top: '9%', right: '4%', anim: 'animate-float-1', yRange: [-40, 70] },
   { img: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=300&q=80', rotate: -10, top: '6%', right: '22%', anim: 'animate-float-3', yRange: [-25, 45] },
-  { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', rotate: 10, top: '40%', right: '2%', anim: 'animate-float-2', yRange: [-30, 50] },
-  { img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=300&q=80', rotate: -8, bottom: '14%', right: '5%', anim: 'animate-float-2', yRange: [0, 90] },
-  { img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80', rotate: -6, bottom: '6%', right: '22%', anim: 'animate-float-1', yRange: [15, 75] },
+  { img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80', rotate: 10, top: '40%', right: '2%', anim: 'animate-float-2', yRange: [-30, 50], hideOnMobile: true },
+  { img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=300&q=80', rotate: -8, bottom: '12%', right: '4%', anim: 'animate-float-2', yRange: [0, 90] },
+  { img: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=300&q=80', rotate: -6, bottom: '5%', right: '24%', anim: 'animate-float-1', yRange: [15, 75] },
 ];
 
 const FEATURED_CAMPUS_PGS = [
@@ -148,7 +148,7 @@ const HomePage = () => {
       {/* 1. TAL-STYLE SCATTERED HERO SECTION (IMAGE 1) */}
       <section
         ref={heroRef}
-        className="relative pt-32 pb-24 sm:pt-40 sm:pb-36 flex flex-col items-center justify-center text-center px-4 overflow-hidden min-h-[88vh]"
+        className="relative pt-28 pb-16 sm:pt-40 sm:pb-36 flex flex-col items-center justify-center text-center px-4 overflow-hidden min-h-[82vh] sm:min-h-[88vh]"
       >
         {/* Floating Scattered Squircles in Background with subtle CSS float and parallax */}
         <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
@@ -156,7 +156,7 @@ const HomePage = () => {
             <motion.div
               key={idx}
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 0.9, scale: 1 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: idx * 0.04 }}
               style={{
                 top: card.top,
@@ -165,7 +165,7 @@ const HomePage = () => {
                 right: card.right,
                 transform: `rotate(${card.rotate}deg)`,
               }}
-              className={`absolute w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-elevated border border-black/[0.06] p-1 ${card.anim}`}
+              className={`absolute w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 opacity-45 sm:opacity-90 rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-elevated border border-black/[0.06] p-1 ${card.hideOnMobile ? 'hidden sm:block ' : ''}${card.anim}`}
             >
               <img
                 src={card.img}
@@ -179,14 +179,14 @@ const HomePage = () => {
         {/* Central Content (Perfect Central Alignment & Symmetry) */}
         <motion.div
           style={{ opacity: heroOpacity, y: heroTranslateY }}
-          className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-8"
+          className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center space-y-6 sm:space-y-8"
         >
           {/* Main Huge Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full text-center font-heading font-black text-5xl sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[1.0] mx-auto"
+            className="w-full text-center font-heading font-black text-[42px] sm:text-7xl md:text-8xl tracking-tight text-[#111111] leading-[1.03] sm:leading-[1.0] mx-auto"
           >
             Find your stay <br />
             near campus
@@ -197,51 +197,51 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full text-center text-base sm:text-lg text-neutral-600 font-medium max-w-xl mx-auto leading-relaxed"
+            className="w-full text-center text-sm sm:text-lg text-neutral-600 font-medium max-w-sm sm:max-w-xl mx-auto px-2 sm:px-0 leading-relaxed"
           >
             A simple, direct way for students to discover verified rooms around Christ University. Zero brokers, zero middleman fees.
           </motion.p>
 
-          {/* Value Props Bar: Mathematically Perfect 3-Column Grid (Zero Brokerage is Exactly Centered) */}
+          {/* Value Props Bar: Mathematically Perfect 3-Column Horizontal Grid on Mobile & Desktop */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="pt-2 w-full max-w-3xl mx-auto relative"
+            className="pt-1 sm:pt-2 w-full max-w-md sm:max-w-3xl mx-auto relative"
           >
-            <div className="grid grid-cols-1 sm:grid-cols-3 items-center text-center relative">
+            <div className="grid grid-cols-3 items-start sm:items-center text-center relative">
               {/* Pillar 1: Direct Owners */}
-              <div className="flex flex-col items-center justify-center text-center px-4 py-2 sm:py-0">
-                <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight whitespace-nowrap">
+              <div className="flex flex-col items-center justify-center text-center px-1.5 sm:px-4">
+                <div className="font-heading font-black text-sm sm:text-2xl md:text-3xl text-black tracking-tight leading-tight sm:whitespace-nowrap">
                   Direct Owners
                 </div>
-                <div className="text-xs text-neutral-500 font-medium mt-1 whitespace-nowrap">
+                <div className="text-[10px] sm:text-xs text-neutral-500 font-medium mt-1 leading-snug sm:whitespace-nowrap">
                   talk directly to landlords
                 </div>
               </div>
 
               {/* Precise Hairline Divider 1 */}
-              <div className="hidden sm:block absolute left-1/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-10 bg-black/[0.08]" />
+              <div className="absolute left-1/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-9 sm:h-10 bg-black/[0.08]" />
 
               {/* Pillar 2: Zero Brokerage (EXACT 50% MATHEMATICAL MIDPOINT) */}
-              <div className="flex flex-col items-center justify-center text-center px-4 py-2 sm:py-0">
-                <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight whitespace-nowrap">
+              <div className="flex flex-col items-center justify-center text-center px-1.5 sm:px-4">
+                <div className="font-heading font-black text-sm sm:text-2xl md:text-3xl text-black tracking-tight leading-tight sm:whitespace-nowrap">
                   Zero Brokerage
                 </div>
-                <div className="text-xs text-neutral-500 font-medium mt-1 whitespace-nowrap">
+                <div className="text-[10px] sm:text-xs text-neutral-500 font-medium mt-1 leading-snug sm:whitespace-nowrap">
                   never pay agent commissions
                 </div>
               </div>
 
               {/* Precise Hairline Divider 2 */}
-              <div className="hidden sm:block absolute left-2/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-10 bg-black/[0.08]" />
+              <div className="absolute left-2/3 top-1/2 -translate-y-1/2 -translate-x-1/2 w-px h-9 sm:h-10 bg-black/[0.08]" />
 
               {/* Pillar 3: Inspect In Person */}
-              <div className="flex flex-col items-center justify-center text-center px-4 py-2 sm:py-0">
-                <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight whitespace-nowrap">
+              <div className="flex flex-col items-center justify-center text-center px-1.5 sm:px-4">
+                <div className="font-heading font-black text-sm sm:text-2xl md:text-3xl text-black tracking-tight leading-tight sm:whitespace-nowrap">
                   Inspect In Person
                 </div>
-                <div className="text-xs text-neutral-500 font-medium mt-1 whitespace-nowrap">
+                <div className="text-[10px] sm:text-xs text-neutral-500 font-medium mt-1 leading-snug sm:whitespace-nowrap">
                   visit rooms before deciding
                 </div>
               </div>
@@ -257,7 +257,7 @@ const HomePage = () => {
           >
             <button
               onClick={() => navigate('/explore')}
-              className="px-8 py-3.5 rounded-full bg-black text-white font-heading font-bold text-sm tracking-tight inline-flex items-center gap-2 shadow-floating hover:bg-neutral-800 transition-all hover:scale-[1.02] active:scale-95"
+              className="px-8 py-4 sm:py-3.5 rounded-full bg-black text-white font-heading font-bold text-sm tracking-tight inline-flex items-center gap-2 shadow-floating hover:bg-neutral-800 transition-all hover:scale-[1.02] active:scale-95"
             >
               <span>Explore Residences</span>
               <ArrowRight className="w-4 h-4" />
@@ -267,20 +267,20 @@ const HomePage = () => {
       </section>
 
       {/* 2. TOP VERIFIED PGS AROUND CHRIST UNIVERSITY (MATCHING IMAGE 2) */}
-      <section className="py-12 px-6 max-w-5xl mx-auto">
+      <section className="py-10 sm:py-12 px-4 sm:px-6 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-6"
+          className="text-center mb-5 sm:mb-6 px-2"
         >
-          <span className="text-[11px] font-mono tracking-widest text-neutral-400 uppercase font-semibold">
+          <span className="text-[10px] sm:text-[11px] font-mono tracking-widest text-neutral-500 uppercase font-semibold leading-relaxed block">
             VERIFIED PGS & RESIDENCES AROUND CHRIST UNIVERSITY CAMPUS
           </span>
         </motion.div>
 
-        {/* 2 Rows x 6 Columns Hairline Container */}
+        {/* 2 Columns on Mobile, 3 on Tablet, 6 on Desktop Hairline Container */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -300,7 +300,7 @@ const HomePage = () => {
               <div
                 key={idx}
                 onClick={() => navigate(`/explore?search=${encodeURIComponent(pg.name)}`)}
-                className={`p-5 flex flex-col items-center justify-center text-center hover:bg-neutral-50/80 transition-all group cursor-pointer active:scale-95 border-black/[0.06] ${
+                className={`py-6 px-3 sm:p-5 flex flex-col items-center justify-center text-center hover:bg-neutral-50/80 transition-all group cursor-pointer active:scale-95 border-black/[0.06] ${
                   !isLastInBaseRow ? 'border-r sm:border-r-0 ' : ''
                 }${
                   !isLastInSmRow ? 'sm:border-r lg:border-r-0 ' : ''
@@ -318,7 +318,7 @@ const HomePage = () => {
                 <span className="font-heading font-bold text-xs sm:text-[13px] text-black group-hover:text-mutedSage transition-colors tracking-tight line-clamp-1">
                   {pg.name}
                 </span>
-                <span className="text-[10px] font-mono text-neutral-400 mt-1">
+                <span className="text-[10px] font-mono text-neutral-400 mt-1 line-clamp-1">
                   {pg.subtitle}
                 </span>
               </div>
@@ -327,25 +327,25 @@ const HomePage = () => {
         </motion.div>
       </section>
 
-      {/* 3. INTERACTIVE RESIDENCE SHOWCASE */}
-      <section className="py-20 px-4 sm:px-6 max-w-5xl mx-auto">
+      {/* 3. INTERACTIVE RESIDENCE SHOWCASE (MATCHING REFERENCE IMAGE 3 ON MOBILE) */}
+      <section className="py-12 sm:py-20 px-4 sm:px-6 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10 space-y-2"
+          className="text-center mb-6 sm:mb-10 space-y-1.5 sm:space-y-2"
         >
-          <span className="text-[11px] font-mono uppercase tracking-widest text-mutedSage font-bold">
+          <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-mutedSage font-bold">
             CAMPUS RESIDENCE SHOWCASE
           </span>
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-black tracking-tight">
+          <h2 className="font-heading font-extrabold text-2xl sm:text-4xl text-black tracking-tight px-2">
             Meet the accommodation before you visit.
           </h2>
         </motion.div>
 
         {/* The Card Container */}
-        <div className="bg-white rounded-[32px] border border-black/[0.08] shadow-floating p-6 sm:p-8 space-y-6">
+        <div className="bg-white rounded-[28px] sm:rounded-[32px] border border-black/[0.08] shadow-floating p-4 sm:p-8 space-y-5 sm:space-y-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeProperty._id || activePropIndex}
@@ -353,16 +353,16 @@ const HomePage = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.35, ease: 'easeInOut' }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start"
+              className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-start"
             >
-              {/* Left: Aspect Ratio Photo with Live Green Dot Pill */}
-              <div className="md:col-span-5 relative aspect-[4/5] rounded-3xl overflow-hidden bg-neutral-100 shadow-inner">
+              {/* Left / Top on Mobile: Aspect Ratio Photo with Live Green Dot Pill */}
+              <div className="md:col-span-5 relative aspect-[4/3.6] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden bg-neutral-100 shadow-inner">
                 <img
                   src={activeProperty.coverImage || activeProperty.images?.[0]}
                   alt={activeProperty.title}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
-                <div className="absolute bottom-4 left-4">
+                <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4">
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-[11px] font-semibold">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span>Available today</span>
@@ -370,11 +370,11 @@ const HomePage = () => {
                 </div>
               </div>
 
-              {/* Right: Detailed Specification */}
-              <div className="md:col-span-7 space-y-5">
+              {/* Right / Bottom on Mobile: Detailed Specification */}
+              <div className="md:col-span-7 space-y-4 sm:space-y-5">
                 {/* Name & Subtitle */}
                 <div>
-                  <h3 className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+                  <h3 className="font-heading font-black text-xl sm:text-3xl text-black tracking-tight leading-snug">
                     {activeProperty.title}
                   </h3>
                   <p className="text-xs text-neutral-500 font-medium mt-1">
@@ -384,33 +384,33 @@ const HomePage = () => {
 
                 {/* Badges Pill Row */}
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-neutral-100 text-black tabular-nums">
+                  <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-neutral-100 text-black tabular-nums">
                     ₹{activeProperty.monthlyRent?.toLocaleString('en-IN')}/mo
                   </span>
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-neutral-100 text-neutral-700">
+                  <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-700">
                     {activeProperty.sharingType} Sharing
                   </span>
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-[#E2ECE6] text-mutedSage">
+                  <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#E2ECE6] text-mutedSage">
                     {activeProperty.accommodationType}
                   </span>
                 </div>
 
                 {/* Direct Owner Connection Highlight */}
-                <div className="flex items-center gap-3.5 py-1">
-                  <div className="w-10 h-10 rounded-2xl bg-lightSage/70 flex items-center justify-center text-mutedSage shrink-0">
-                    <ShieldCheck className="w-5 h-5 text-mutedSage" />
+                <div className="flex items-center gap-3 py-0.5 sm:py-1">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-lightSage/70 flex items-center justify-center text-mutedSage shrink-0">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-mutedSage" />
                   </div>
                   <div>
-                    <div className="text-sm font-bold text-black">Direct Owner Connection</div>
-                    <div className="text-xs text-neutral-500 font-light">
+                    <div className="text-xs sm:text-sm font-bold text-black">Direct Owner Connection</div>
+                    <div className="text-[11px] sm:text-xs text-neutral-500 font-light">
                       Verified owner profiles. Connect and schedule physical visits directly.
                     </div>
                   </div>
                 </div>
 
                 {/* Curator Highlight Box */}
-                <div className="bg-[#F6F5F2] p-4 rounded-2xl space-y-1">
-                  <div className="text-[11px] font-mono uppercase text-neutral-500 font-bold">
+                <div className="bg-[#F6F5F2] p-3.5 sm:p-4 rounded-2xl space-y-1">
+                  <div className="text-[10px] sm:text-[11px] font-mono uppercase text-neutral-500 font-bold">
                     Curator's Note
                   </div>
                   <p className="text-xs sm:text-sm font-semibold text-black leading-snug">
@@ -420,14 +420,14 @@ const HomePage = () => {
 
                 {/* Amenities Pills */}
                 <div>
-                  <span className="text-[11px] font-mono uppercase text-neutral-400 block mb-2 font-semibold">
+                  <span className="text-[10px] sm:text-[11px] font-mono uppercase text-neutral-400 block mb-2 font-semibold">
                     What this stay brings to you
                   </span>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {activeProperty.amenities?.slice(0, 4).map((am, i) => (
                       <span
                         key={i}
-                        className="text-xs font-medium px-3 py-1 rounded-full bg-neutral-100 text-neutral-700"
+                        className="text-[11px] sm:text-xs font-medium px-2.5 sm:px-3 py-1 rounded-full bg-neutral-100 text-neutral-700"
                       >
                         {am}
                       </span>
@@ -437,33 +437,36 @@ const HomePage = () => {
 
                 {/* Journey / Location Row */}
                 <div className="pt-2 border-t border-black/[0.04] flex items-center gap-2 text-xs text-neutral-500">
-                  <MapPin className="w-3.5 h-3.5 text-mutedSage" />
+                  <MapPin className="w-3.5 h-3.5 text-mutedSage shrink-0" />
                   <span className="font-medium text-neutral-700">{activeProperty.walkTime || '4 min walk to campus'}</span>
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
 
-          {/* Card Bottom Bar (Matching Image 3) */}
-          <div className="pt-4 border-t border-black/[0.06] flex items-center justify-between">
+          {/* Card Bottom Bar (Matching Reference Image 3 on Mobile) */}
+          <div className="pt-4 border-t border-black/[0.06] flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-black text-white flex items-center justify-center font-heading font-black text-xs">
-                SN
+              <div className="w-8 h-8 rounded-xl bg-black text-white flex flex-col items-center justify-center font-heading font-black text-[10px] leading-none">
+                <span>stay</span>
+                <span className="text-[6px] text-[#DCEBE3] uppercase">NEAR</span>
               </div>
               <span className="text-xs font-bold text-black hidden sm:inline-block">StayNear Verified</span>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 sm:gap-3">
               <button
                 onClick={handleNextStay}
-                className="px-5 py-2.5 rounded-full border border-black/[0.12] text-xs font-bold text-neutral-700 hover:border-black hover:text-black transition-all active:scale-95"
+                aria-label="Next Stay"
+                className="w-10 h-10 sm:w-auto sm:h-auto sm:px-5 sm:py-2.5 rounded-full border border-black/[0.12] text-xs font-bold text-neutral-700 hover:border-black hover:text-black transition-all active:scale-95 flex items-center justify-center"
               >
-                ✕ Next Stay
+                <span>✕</span>
+                <span className="hidden sm:inline sm:ml-1.5">Next Stay</span>
               </button>
 
               <button
                 onClick={() => navigate(`/property/${activeProperty._id || ''}`)}
-                className="px-6 py-2.5 rounded-full bg-black text-white text-xs font-bold flex items-center gap-1.5 shadow-sm hover:bg-neutral-800 transition-all active:scale-95"
+                className="px-5 sm:px-6 py-2.5 rounded-full bg-black text-white text-xs font-bold flex items-center gap-1.5 shadow-sm hover:bg-neutral-800 transition-all active:scale-95 whitespace-nowrap"
               >
                 <Calendar className="w-3.5 h-3.5" />
                 <span>Schedule Visit</span>
@@ -474,53 +477,53 @@ const HomePage = () => {
       </section>
 
       {/* 4. HOW STAYNEAR HELPS (HONEST & HELPFUL VALUE PROPOSITION) */}
-      <section className="py-16 px-6 max-w-5xl mx-auto">
+      <section className="py-12 sm:py-16 px-4 sm:px-6 max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="mb-8 text-center sm:text-left"
+          className="mb-6 sm:mb-8 text-center sm:text-left"
         >
-          <span className="text-[11px] font-mono uppercase tracking-widest text-mutedSage font-bold">
+          <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-widest text-mutedSage font-bold">
             BUILT FOR STUDENTS
           </span>
           <h2 className="font-heading font-black text-2xl sm:text-4xl text-black tracking-tight mt-1">
             A simpler way to find your room
           </h2>
-          <p className="text-xs sm:text-sm text-neutral-500 mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-neutral-500 mt-1 max-w-xl mx-auto sm:mx-0">
             We started StayNear to help Christ University students find dependable accommodation within walking distance, directly from verified landlords.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
           {/* Left Card: Walking distance stays */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-8 flex flex-col justify-between space-y-6 group"
+            className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-5 sm:p-8 flex flex-col justify-between space-y-6 group overflow-hidden"
           >
             <div>
-              <div className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+              <div className="font-heading font-black text-xl sm:text-3xl text-black tracking-tight">
                 Walking distance to campus
               </div>
-              <p className="text-sm font-medium text-neutral-600 mt-1">
+              <p className="text-xs sm:text-sm font-medium text-neutral-600 mt-1">
                 Curated rooms across SG Palya, Tavarekere, and Koramangala. 200m to 600m from Gate 1 and Gate 2.
               </p>
             </div>
 
             {/* Stacked Fan Preview Cards with Hover Interactive Spread */}
-            <div className="relative h-56 flex items-center justify-center">
-              <div className="w-36 h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform -rotate-12 translate-x-[-30px] group-hover:-rotate-16 group-hover:translate-x-[-42px] transition-transform duration-500">
+            <div className="relative h-48 sm:h-56 flex items-center justify-center">
+              <div className="w-28 h-40 sm:w-36 sm:h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform -rotate-12 translate-x-[-22px] sm:translate-x-[-30px] group-hover:-rotate-16 group-hover:translate-x-[-42px] transition-transform duration-500">
                 <img
                   src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&w=400&q=80"
                   alt="Student room"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="w-36 h-48 rounded-2xl overflow-hidden shadow-2xl border border-black/[0.08] transform rotate-2 z-10 group-hover:scale-105 transition-transform duration-500 relative">
+              <div className="w-28 h-40 sm:w-36 sm:h-48 rounded-2xl overflow-hidden shadow-2xl border border-black/[0.08] transform rotate-2 z-10 group-hover:scale-105 transition-transform duration-500 relative">
                 <img
                   src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=400&q=80"
                   alt="Student studying"
@@ -532,7 +535,7 @@ const HomePage = () => {
                   </span>
                 </div>
               </div>
-              <div className="w-36 h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform rotate-12 translate-x-[30px] group-hover:rotate-16 group-hover:translate-x-[42px] transition-transform duration-500">
+              <div className="w-28 h-40 sm:w-36 sm:h-48 rounded-2xl overflow-hidden shadow-lg border border-black/[0.08] transform rotate-12 translate-x-[22px] sm:translate-x-[30px] group-hover:rotate-16 group-hover:translate-x-[42px] transition-transform duration-500">
                 <img
                   src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80"
                   alt="Co-living lounge"
@@ -548,19 +551,19 @@ const HomePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-8 flex flex-col justify-between space-y-6"
+            className="bg-white rounded-3xl border border-black/[0.08] shadow-sm p-5 sm:p-8 flex flex-col justify-between space-y-5 sm:space-y-6"
           >
             <div>
-              <h3 className="font-heading font-black text-2xl sm:text-3xl text-black tracking-tight">
+              <h3 className="font-heading font-black text-xl sm:text-3xl text-black tracking-tight">
                 Direct contact with property owners
               </h3>
-              <p className="text-sm font-medium text-neutral-600 mt-1">
+              <p className="text-xs sm:text-sm font-medium text-neutral-600 mt-1">
                 No middleman brokers taking commissions or pushing unauthorized properties.
               </p>
             </div>
 
             {/* Nested Card with Honest Value Points */}
-            <div className="bg-[#FAF9F6] rounded-2xl border border-black/[0.06] p-6 text-left space-y-4">
+            <div className="bg-[#FAF9F6] rounded-2xl border border-black/[0.06] p-4 sm:p-6 text-left space-y-4">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-[#E2ECE6] flex items-center justify-center text-mutedSage shrink-0">
                   <ShieldCheck className="w-4 h-4" />
@@ -601,8 +604,8 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* 5. MINIMAL TAL PHONE / QUICK BOOK BANNER (MATCHING IMAGE 5) */}
-      <section className="py-24 px-4 text-center max-w-4xl mx-auto space-y-6">
+      {/* 5. MINIMAL TAL PHONE / QUICK BOOK BANNER (MATCHING REFERENCE IMAGE 4 ON MOBILE) */}
+      <section className="py-16 sm:py-24 px-5 sm:px-6 text-center max-w-4xl mx-auto space-y-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -610,30 +613,30 @@ const HomePage = () => {
           transition={{ duration: 0.6 }}
           className="space-y-3"
         >
-          <h2 className="font-heading font-black text-3xl sm:text-5xl md:text-6xl text-black tracking-tight whitespace-nowrap">
-            Find your stay near campus
+          <h2 className="font-heading font-black text-4xl sm:text-5xl md:text-6xl text-black tracking-tight leading-[1.06] sm:whitespace-nowrap">
+            Find your stay <br className="sm:hidden" /> near campus
           </h2>
 
-          <div className="space-y-1">
-            <p className="text-base sm:text-lg font-semibold text-neutral-800 whitespace-nowrap">
+          <div className="space-y-1.5 px-2 sm:px-0">
+            <p className="text-base sm:text-lg font-semibold text-neutral-800 leading-snug sm:whitespace-nowrap">
               Discover verified student rooms around Christ University
             </p>
-            <p className="text-xs sm:text-sm text-neutral-500 font-light whitespace-nowrap">
+            <p className="text-xs sm:text-sm text-neutral-500 font-light leading-relaxed sm:whitespace-nowrap">
               Enter your mobile number to receive curated room options directly
             </p>
           </div>
         </motion.div>
 
-        {/* TAL Pill Input (Matching Image 5) */}
+        {/* TAL Pill Input (Matching Reference Image 4) */}
         <motion.form
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6, delay: 0.1 }}
           onSubmit={handleQuickSubmit}
-          className="pt-3 max-w-md mx-auto space-y-4"
+          className="pt-2 max-w-md mx-auto space-y-4"
         >
-          <div className="relative flex items-center px-4 py-3.5 rounded-full border border-black/20 bg-white shadow-sm focus-within:border-black transition-colors">
+          <div className="relative flex items-center px-4 sm:px-5 py-3.5 rounded-full border border-black/20 bg-white shadow-sm focus-within:border-black transition-colors">
             {/* Interactive Country Code Dropdown Trigger */}
             <div className="relative" ref={countryDropdownRef}>
               <button
@@ -701,43 +704,47 @@ const HomePage = () => {
               placeholder="98765 43210"
               value={quickPhone}
               onChange={(e) => setQuickPhone(e.target.value)}
-              className="w-full pl-3 text-sm sm:text-base font-semibold text-black placeholder:text-neutral-400 bg-transparent focus:outline-none tracking-wide"
+              className="w-full pl-3 text-base font-semibold text-black placeholder:text-neutral-400 bg-transparent focus:outline-none tracking-wide min-w-0"
             />
           </div>
 
-          <p className="text-[11px] sm:text-xs text-neutral-400 whitespace-nowrap">
+          <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed sm:whitespace-nowrap">
             We’ll text you instant verified links and campus map
           </p>
 
-          <button
-            type="submit"
-            className="w-full py-3.5 rounded-full bg-black text-white font-heading font-bold text-sm tracking-tight flex items-center justify-center gap-1.5 shadow-floating hover:bg-neutral-800 transition-all active:scale-95 whitespace-nowrap"
-          >
-            <span>Continue</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="flex justify-center pt-1">
+            <button
+              type="submit"
+              className="w-full max-w-[240px] sm:w-full sm:max-w-md py-3.5 px-8 rounded-full bg-black text-white font-heading font-bold text-sm tracking-tight flex items-center justify-center gap-1.5 shadow-floating hover:bg-neutral-800 transition-all active:scale-95"
+            >
+              <span>Continue</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
 
-          <p className="text-[10px] sm:text-[11px] text-neutral-400 pt-1 whitespace-nowrap">
+          <p className="text-[10px] sm:text-[11px] text-neutral-400 pt-1 max-w-xs sm:max-w-none mx-auto leading-relaxed sm:whitespace-nowrap">
             By requesting a code, you agree to StayNear's Terms of Service and Privacy Policy.
           </p>
         </motion.form>
       </section>
 
-      {/* 6. MINIMAL TAL FOOTER (MATCHING IMAGE 5) */}
+      {/* 6. MINIMAL TAL FOOTER (MATCHING REFERENCE IMAGE 4 ON MOBILE) */}
       <footer className="border-t border-black/[0.06] py-10 px-6 sm:px-12 text-xs text-neutral-500">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-black text-white flex flex-col items-center justify-center font-heading font-black text-[11px] tracking-tighter leading-none shadow-sm">
+            <div className="w-9 h-9 sm:w-8 sm:h-8 rounded-xl bg-black text-white flex flex-col items-center justify-center font-heading font-black text-[11px] tracking-tighter leading-none shadow-sm">
               <span>stay</span>
               <span className="text-[7px] text-[#DCEBE3] uppercase">NEAR</span>
             </div>
             <span className="text-neutral-400 font-mono">© 2026 staynear</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 font-medium text-neutral-600">
-            <Link to="/list-property" className="hover:text-black transition-colors">For Owners</Link>
-            <Link to="/about" className="hover:text-black transition-colors">About</Link>
-            <Link to="/contact" className="hover:text-black transition-colors">Support</Link>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 font-medium text-neutral-600 w-full sm:w-auto">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <Link to="/list-property" className="hover:text-black transition-colors">For Owners</Link>
+              <Link to="/about" className="hover:text-black transition-colors">About</Link>
+              <Link to="/contact" className="hover:text-black transition-colors">Support</Link>
+            </div>
             <Link to="/explore" className="hover:text-black transition-colors">Looking for a PG? Explore stays</Link>
           </div>
         </div>

@@ -71,11 +71,11 @@ const Navbar = () => {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        <div className="flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 relative z-10">
+        <div className="flex items-center justify-between gap-3">
           {/* TAL-style Squircle Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-2xl bg-black text-white flex flex-col items-center justify-center font-heading font-black tracking-tighter shadow-sm leading-none transition-transform group-hover:scale-95">
+          <Link to="/" className="flex items-center gap-2 group shrink-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-black text-white flex flex-col items-center justify-center font-heading font-black tracking-tighter shadow-sm leading-none transition-transform group-hover:scale-95">
               <span className="text-[13px] tracking-tight">stay</span>
               <span className="text-[9px] font-mono tracking-widest text-[#DCEBE3] uppercase">NEAR</span>
             </div>
@@ -265,11 +265,37 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
+          {/* Mobile Quick Actions + Menu Button (Matching Reference Mobile Header) */}
+          <div className="flex items-center gap-2.5 md:hidden">
+            {isAuthenticated ? (
+              <Link
+                to={getDashboardLink()}
+                className="px-4 py-2 rounded-full bg-black text-white text-xs font-semibold flex items-center gap-1 shadow-sm"
+              >
+                <span>Dashboard</span>
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="px-4 py-2 rounded-full bg-black text-white text-xs font-semibold flex items-center gap-1 shadow-sm"
+                >
+                  <span>Login</span>
+                  <ArrowRight className="w-3 h-3" />
+                </Link>
+                <Link
+                  to="/register"
+                  className="text-xs font-semibold text-neutral-700 hover:text-black px-1"
+                >
+                  Sign up
+                </Link>
+              </>
+            )}
+
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-nearBlack hover:text-mutedSage"
+              className="p-2 rounded-full text-nearBlack hover:bg-black/[0.05] transition-colors"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
