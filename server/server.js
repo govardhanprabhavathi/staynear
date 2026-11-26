@@ -225,6 +225,8 @@ const startServer = async () => {
           availability: 'Available Now',
           approvalStatus: 'approved',
           featured: true,
+          isSponsored: true,
+          sponsoredAt: new Date(),
           viewsCount: 342,
         },
         {
@@ -262,6 +264,8 @@ const startServer = async () => {
           availability: 'Available Now',
           approvalStatus: 'approved',
           featured: true,
+          isSponsored: true,
+          sponsoredAt: new Date(),
           viewsCount: 512,
         },
         {
@@ -364,6 +368,8 @@ const startServer = async () => {
           availability: 'Filling Fast',
           approvalStatus: 'approved',
           featured: true,
+          isSponsored: true,
+          sponsoredAt: new Date(),
           viewsCount: 480,
         },
         {
@@ -432,6 +438,8 @@ const startServer = async () => {
           availability: 'Available Now',
           approvalStatus: 'approved',
           featured: true,
+          isSponsored: true,
+          sponsoredAt: new Date(),
           viewsCount: 360,
         },
         {

@@ -119,6 +119,14 @@ const propertySchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    isSponsored: {
+      type: Boolean,
+      default: false,
+    },
+    sponsoredAt: {
+      type: Date,
+      default: null,
+    },
     viewsCount: {
       type: Number,
       default: 0,
@@ -130,6 +138,7 @@ const propertySchema = new mongoose.Schema(
 );
 
 // Indexes for fast searching and filtering
+propertySchema.index({ approvalStatus: 1, isSponsored: -1, createdAt: -1 });
 propertySchema.index({ approvalStatus: 1, monthlyRent: 1 });
 propertySchema.index({ 'location.locality': 1, accommodationType: 1 });
 propertySchema.index({ title: 'text', description: 'text', 'location.locality': 'text' });

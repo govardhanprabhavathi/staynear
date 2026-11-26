@@ -18,6 +18,7 @@ const getProperties = async (req, res, next) => {
       food,
       amenities,
       availability,
+      sponsored,
       sort,
       page = 1,
       limit = 9,
@@ -26,6 +27,10 @@ const getProperties = async (req, res, next) => {
     const query = {
       approvalStatus: 'approved', // Strictly approved only for public
     };
+
+    if (sponsored === 'true') {
+      query.isSponsored = true;
+    }
 
     // Keyword search across title, description, and locality
     if (search && search.trim() !== '') {
@@ -79,14 +84,14 @@ const getProperties = async (req, res, next) => {
       query.availability = availability;
     }
 
-    // Sorting
-    let sortOption = { createdAt: -1 }; // Default: newest
+    // Sorting — sponsored PGs roll first on default/relevance/sponsored views
+    let sortOption = { isSponsored: -1, sponsoredAt: -1, createdAt: -1 }; // Default: sponsored first, then newest
     if (sort === 'rent_asc') {
       sortOption = { monthlyRent: 1 };
     } else if (sort === 'rent_desc') {
       sortOption = { monthlyRent: -1 };
     } else if (sort === 'relevance' || sort === 'views') {
-      sortOption = { viewsCount: -1, createdAt: -1 };
+      sortOption = { isSponsored: -1, sponsoredAt: -1, viewsCount: -1, createdAt: -1 };
     }
 
     const pageNum = parseInt(page, 10);
@@ -284,6 +289,7 @@ const createProperty = async (req, res, next) => {
       houseRules,
       images,
       coverImage,
+      isSponsored,
     } = req.body;
 
     if (!title || !description || !accommodationType || !monthlyRent || !location || !location.address || !location.locality) {
@@ -316,6 +322,8 @@ const createProperty = async (req, res, next) => {
       houseRules: houseRules || [],
       images,
       coverImage: coverImage || images[0],
+      isSponsored: Boolean(isSponsored),
+      sponsoredAt: isSponsored ? new Date() : null,
       availability: 'Available Now',
       approvalStatus: 'pending', // Strictly pending review
     });
@@ -352,9 +360,14 @@ const updateProperty = async (req, res, next) => {
       });
     }
 
+    const updatePayload = { ...req.body };
+    if (typeof req.body.isSponsored === 'boolean') {
+      updatePayload.sponsoredAt = req.body.isSponsored ? new Date() : null;
+    }
+
     const updatedProperty = await Property.findByIdAndUpdate(
       req.params.id,
-      { ...req.body },
+      updatePayload,
       { new: true, runValidators: true }
     );
 

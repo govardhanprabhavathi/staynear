@@ -54,6 +54,8 @@ export const SAMPLE_PROPERTIES = [
     availability: 'Available Now',
     isOwnerVerified: true,
     featured: true,
+    isSponsored: true,
+    sponsoredTagline: '200m from Gate 1 • Limited double-sharing spots open',
     quote: 'Ergonomic study desks, quiet study hours, and freshly prepared North & South Indian meals.',
     walkTime: '3 min walk',
     ownerId: {
@@ -109,6 +111,8 @@ export const SAMPLE_PROPERTIES = [
     availability: 'Available Now',
     isOwnerVerified: true,
     featured: true,
+    isSponsored: true,
+    sponsoredTagline: 'Private studios & co-working terrace near Forum',
     quote: 'Design-forward private studio with quiet co-working lounge and rooftop terrace.',
     walkTime: '5 min walk',
     ownerId: {
@@ -268,6 +272,8 @@ export const SAMPLE_PROPERTIES = [
     availability: 'Filling Fast',
     isOwnerVerified: true,
     featured: true,
+    isSponsored: true,
+    sponsoredTagline: 'Koramangala 1st Block • Quiet study suites',
     quote: 'Curated premium community with luxury fittings and quiet reading lounge.',
     walkTime: '7 min commute',
     ownerId: {
@@ -374,6 +380,8 @@ export const SAMPLE_PROPERTIES = [
     availability: 'Available Now',
     isOwnerVerified: true,
     featured: true,
+    isSponsored: true,
+    sponsoredTagline: 'Acoustic-isolated single suites • Daily housekeeping',
     quote: 'Peaceful acoustic-isolated rooms with high-speed fiber and ergonomic study areas.',
     walkTime: '6 min walk',
     ownerId: {

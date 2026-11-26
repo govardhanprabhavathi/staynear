@@ -70,10 +70,17 @@ export const propertyService = {
       );
     }
 
+    if (params.sponsored === 'true' || params.sponsored === true) {
+      list = list.filter((p) => p.isSponsored);
+    }
+
     if (params.sort === 'rent_asc') {
       list.sort((a, b) => a.monthlyRent - b.monthlyRent);
     } else if (params.sort === 'rent_desc') {
       list.sort((a, b) => b.monthlyRent - a.monthlyRent);
+    } else {
+      // Sponsored PGs always roll first by default
+      list.sort((a, b) => (b.isSponsored ? 1 : 0) - (a.isSponsored ? 1 : 0));
     }
 
     const limit = params.limit ? Number(params.limit) : list.length;
@@ -85,6 +92,16 @@ export const propertyService = {
       total: list.length,
       properties: paginated,
     };
+  },
+
+  // Sponsored properties for Explore PGs top rolling section
+  getSponsored: async (params = {}) => {
+    const res = await propertyService.getProperties({
+      ...params,
+      sponsored: 'true',
+      limit: 12,
+    });
+    return res.properties || [];
   },
 
   // Featured properties for homepage

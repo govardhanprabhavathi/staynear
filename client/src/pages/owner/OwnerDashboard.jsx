@@ -20,6 +20,7 @@ import {
   LogOut,
   Upload,
   ShieldCheck,
+  Megaphone,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
@@ -293,6 +294,23 @@ const OwnerDashboard = () => {
       loadOwnerData();
     } catch (err) {
       showToast('Failed to delete property.', 'error');
+    }
+  };
+
+  // Handle Toggle Sponsored Promotion
+  const handleToggleSponsor = async (prop) => {
+    try {
+      const nextState = !prop.isSponsored;
+      await propertyService.update(prop._id, { isSponsored: nextState });
+      showToast(
+        nextState
+          ? 'PG promoted! It will now roll first in Sponsored PGs on Explore.'
+          : 'Sponsored promotion paused for this listing.',
+        nextState ? 'success' : 'info'
+      );
+      loadOwnerData();
+    } catch (err) {
+      showToast('Could not update promotion status.', 'error');
     }
   };
 
@@ -715,8 +733,14 @@ const OwnerDashboard = () => {
                             alt={prop.title}
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute top-2 left-2">
+                          <div className="absolute top-2 left-2 flex items-center gap-1.5">
                             <StatusBadge status={prop.approvalStatus} />
+                            {prop.isSponsored && (
+                              <span className="inline-flex items-center gap-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#7A4E0B] bg-[#FBF3E4]/95 px-2 py-0.5 rounded-full border border-[#E7C98F]">
+                                <Megaphone className="w-2.5 h-2.5" />
+                                <span>Sponsored</span>
+                              </span>
+                            )}
                           </div>
                         </div>
 
@@ -737,7 +761,7 @@ const OwnerDashboard = () => {
                             </div>
                           )}
 
-                          <div className="pt-3 border-t border-warmSand/70 flex items-center justify-between">
+                          <div className="pt-3 border-t border-warmSand/70 flex items-center justify-between gap-2">
                             <Link
                               to={`/property/${prop._id}`}
                               className="text-xs font-semibold text-mutedSage hover:underline flex items-center gap-1"
@@ -745,6 +769,20 @@ const OwnerDashboard = () => {
                               <span>Preview</span>
                               <ExternalLink className="w-3 h-3" />
                             </Link>
+
+                            {prop.approvalStatus === 'approved' && (
+                              <button
+                                onClick={() => handleToggleSponsor(prop)}
+                                className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border transition-colors flex items-center gap-1 ${
+                                  prop.isSponsored
+                                    ? 'bg-[#FBF3E4] text-[#7A4E0B] border-[#E7C98F] hover:bg-[#F5E6C8]'
+                                    : 'bg-warmOffWhite text-nearBlack border-warmSand hover:border-nearBlack'
+                                }`}
+                              >
+                                <Megaphone className="w-3 h-3" />
+                                <span>{prop.isSponsored ? 'Promoted' : 'Promote PG'}</span>
+                              </button>
+                            )}
 
                             <button
                               onClick={() => handleDeleteProperty(prop._id)}

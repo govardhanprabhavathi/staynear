@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
   SlidersHorizontal,
   X,
   RotateCcw,
-  Building,
+  Megaphone,
+  ChevronLeft,
+  ChevronRight,
+  Pause,
+  Play,
+  ArrowRight,
 } from 'lucide-react';
 import { propertyService } from '../../services/propertyService';
 import { SAMPLE_PROPERTIES } from '../../data/sampleProperties';
+import { useAuth } from '../../context/AuthContext';
 import PropertyCard from '../../components/property/PropertyCard';
 import Button from '../../components/common/Button';
 
@@ -40,6 +46,7 @@ const AMENITY_OPTIONS = [
 
 const ExplorePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { isAuthenticated, user } = useAuth();
 
   // Filters State
   const [search, setSearch] = useState(searchParams.get('search') || '');
@@ -55,8 +62,11 @@ const ExplorePage = () => {
   // Drawer state for mobile
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  // Results State
+  // Results & Sponsored State
   const [properties, setProperties] = useState([]);
+  const [sponsoredProperties, setSponsoredProperties] = useState([]);
+  const [sponsoredIndex, setSponsoredIndex] = useState(0);
+  const [isRollPaused, setIsRollPaused] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -84,15 +94,21 @@ const ExplorePage = () => {
         if (selectedAmenities.length > 0) params.amenities = selectedAmenities.join(',');
         if (sort) params.sort = sort;
 
-        const data = await propertyService.getProperties(params);
+        const [data, sponsored] = await Promise.all([
+          propertyService.getProperties({ ...params, limit: 24 }),
+          propertyService.getSponsored(params),
+        ]);
         if (data.success) {
           setProperties(data.properties);
           setTotalCount(data.total);
         }
+        setSponsoredProperties(sponsored);
+        setSponsoredIndex(0);
       } catch (err) {
         console.error('Failed to fetch properties, falling back to sample stays:', err);
         setProperties(SAMPLE_PROPERTIES);
         setTotalCount(SAMPLE_PROPERTIES.length);
+        setSponsoredProperties(SAMPLE_PROPERTIES.filter((p) => p.isSponsored));
       } finally {
         setLoading(false);
       }
@@ -100,6 +116,27 @@ const ExplorePage = () => {
 
     fetchListings();
   }, [search, locality, category, minRent, maxRent, sharing, foodOnly, selectedAmenities, sort]);
+
+  // Auto-roll sponsored PGs smoothly so promoted listings cycle into the first slot
+  useEffect(() => {
+    if (isRollPaused || sponsoredProperties.length <= 1) return;
+    const interval = setInterval(() => {
+      setSponsoredIndex((prev) => (prev + 1) % sponsoredProperties.length);
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [isRollPaused, sponsoredProperties.length]);
+
+  const visibleSponsored =
+    sponsoredProperties.length <= 3
+      ? sponsoredProperties
+      : Array.from({ length: 3 }, (_, offset) =>
+          sponsoredProperties[(sponsoredIndex + offset) % sponsoredProperties.length]
+        );
+
+  const promoteTarget =
+    isAuthenticated && user?.role === 'owner'
+      ? '/owner/dashboard?tab=properties'
+      : '/list-property';
 
   const handleToggleAmenity = (amenity) => {
     if (selectedAmenities.includes(amenity)) {
@@ -240,6 +277,120 @@ const ExplorePage = () => {
               Reset All
             </button>
           </div>
+        )}
+
+        {/* Dedicated Sponsored PGs Section (Rolls on top & first) */}
+        {sponsoredProperties.length > 0 && (
+          <section
+            aria-label="Sponsored PGs"
+            onMouseEnter={() => setIsRollPaused(true)}
+            onMouseLeave={() => setIsRollPaused(false)}
+            className="mb-10 bg-pureWhite rounded-2xl border border-[#E7C98F]/80 p-6 sm:p-7 shadow-subtle"
+          >
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 mb-6 border-b border-hairline">
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold uppercase tracking-widest text-[#7A4E0B] bg-[#FBF3E4] px-2.5 py-0.5 rounded-full border border-[#E7C98F]">
+                    <Megaphone className="w-3 h-3" />
+                    <span>Sponsored PGs</span>
+                  </span>
+                  <span className="text-[11px] font-mono text-textMuted">
+                    Rolling spotlight • {sponsoredProperties.length} promoted stay{sponsoredProperties.length === 1 ? '' : 's'}
+                  </span>
+                </div>
+                <h2 className="font-heading font-bold text-xl sm:text-2xl text-nearBlack tracking-tight">
+                  Promoted Residences Around Campus
+                </h2>
+                <p className="text-xs text-textSecondary">
+                  PGs featured first by owners actively welcoming new student visits.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Link
+                  to={promoteTarget}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-nearBlack bg-surfaceMuted/70 hover:bg-nearBlack hover:text-pureWhite px-3.5 py-2 rounded-full border border-hairline transition-colors"
+                >
+                  <span>Promote your PG</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+
+                {sponsoredProperties.length > 1 && (
+                  <div className="flex items-center gap-1.5 pl-1">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSponsoredIndex(
+                          (prev) => (prev - 1 + sponsoredProperties.length) % sponsoredProperties.length
+                        )
+                      }
+                      aria-label="Previous sponsored PG"
+                      className="w-8 h-8 rounded-full border border-hairline bg-pureWhite hover:border-nearBlack flex items-center justify-center text-nearBlack transition-colors"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsRollPaused((prev) => !prev)}
+                      aria-label={isRollPaused ? 'Resume auto-roll' : 'Pause auto-roll'}
+                      title={isRollPaused ? 'Resume auto-roll' : 'Pause auto-roll'}
+                      className="w-8 h-8 rounded-full border border-hairline bg-pureWhite hover:border-nearBlack flex items-center justify-center text-nearBlack transition-colors"
+                    >
+                      {isRollPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setSponsoredIndex((prev) => (prev + 1) % sponsoredProperties.length)
+                      }
+                      aria-label="Next sponsored PG"
+                      className="w-8 h-8 rounded-full border border-hairline bg-pureWhite hover:border-nearBlack flex items-center justify-center text-nearBlack transition-colors"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={sponsoredIndex}
+                initial={{ opacity: 0.7, x: 14 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0.7, x: -14 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
+                {visibleSponsored.map((property) => (
+                  <PropertyCard key={`sponsored-${property._id}`} property={property} priority />
+                ))}
+              </motion.div>
+            </AnimatePresence>
+
+            {sponsoredProperties.length > 1 && (
+              <div className="flex items-center justify-between mt-5 pt-4 border-t border-hairline/70">
+                <div className="flex items-center gap-1.5">
+                  {sponsoredProperties.map((prop, idx) => (
+                    <button
+                      key={prop._id}
+                      type="button"
+                      onClick={() => setSponsoredIndex(idx)}
+                      aria-label={`Show ${prop.title} first`}
+                      className={`h-1.5 rounded-full transition-all ${
+                        idx === sponsoredIndex
+                          ? 'w-6 bg-nearBlack'
+                          : 'w-1.5 bg-neutral-300 hover:bg-neutral-400'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-textMuted">
+                  {isRollPaused ? 'Paused on hover' : 'Auto-rolling'} • {String(sponsoredIndex + 1).padStart(2, '0')} / {String(sponsoredProperties.length).padStart(2, '0')}
+                </span>
+              </div>
+            )}
+          </section>
         )}
 
         {/* Layout Grid */}
